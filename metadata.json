@@ -1,0 +1,8 @@
+{
+  "name": "Meritt Workspace",
+  "description": "An Attio-inspired, high-density minimalist workspace for freelancers and businesses, featuring a custom CRM pipeline, unified marketplace, and financial management.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
