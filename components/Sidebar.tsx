@@ -33,20 +33,15 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, role, userNa
 
   return (
     <aside className="hidden md:flex w-[240px] h-full bg-[#F9FAFB] dark:bg-dark-surface flex-col border-r border-[#E2E8F0] dark:border-dark-border transition-colors">
-      {/* Logo Section */}
-      <div className="p-8 pb-6 flex items-center justify-between">
-        <div className="flex items-center gap-1 cursor-pointer">
-          <span className="brand-text text-2xl text-brand">meritt.</span>
-        </div>
+      <div className="p-8 pb-6">
+        <span className="brand-text text-2xl text-brand">meritt.</span>
       </div>
 
-      {/* Workspace Label */}
       <div className="px-8 py-2">
-        <span className="text-[10px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-[0.2em]">{role}</span>
+        <span className="text-[9px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-[0.3em]">{role}</span>
       </div>
 
-      {/* Navigation */}
-      <nav className="flex-1 px-4 mt-4 space-y-1">
+      <nav className="flex-1 px-4 mt-6 space-y-1">
         {navItems.map((item) => (
           <button
             key={item.id}
@@ -54,32 +49,28 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, role, userNa
             className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all group ${
               activeTab === item.id 
               ? 'bg-white dark:bg-dark border border-[#E2E8F0] dark:border-dark-border shadow-sm text-brand font-bold' 
-              : 'text-gray-500 hover:text-brand hover:bg-white dark:hover:bg-dark/40 border border-transparent'
+              : 'text-gray-500 hover:text-brand hover:bg-white dark:hover:bg-dark/40'
             }`}
           >
-            <item.icon className={`w-4 h-4 transition-colors ${activeTab === item.id ? 'text-brand' : 'group-hover:text-brand'}`} />
-            <span className="text-[12px] font-semibold">{item.label}</span>
+            <item.icon className={`w-4 h-4 ${activeTab === item.id ? 'text-brand' : ''}`} />
+            <span className="text-[12px] font-bold tracking-tight">{item.label}</span>
           </button>
         ))}
       </nav>
 
-      {/* Bottom Profile Section */}
       <div className="p-4 border-t border-[#E2E8F0] dark:border-dark-border">
-        <div className="flex items-center justify-between gap-3 p-2 rounded-xl hover:bg-white dark:hover:bg-dark-surface cursor-pointer group transition-all border border-transparent hover:border-[#E2E8F0] dark:hover:border-dark-border">
+        <div className="flex items-center justify-between gap-3 p-2 rounded-xl hover:bg-white dark:hover:bg-dark-surface group transition-all border border-transparent hover:border-[#E2E8F0]">
           <div className="flex items-center gap-3 min-w-0">
-            <div className="w-8 h-8 rounded-full bg-brand flex items-center justify-center text-white font-bold text-xs shadow-md">
+            <div className="w-8 h-8 rounded-full bg-brand flex items-center justify-center text-white font-black text-[10px] shadow-lg">
               {userName.charAt(0)}
             </div>
             <div className="flex flex-col min-w-0">
-              <span className="font-bold text-[12px] truncate dark:text-white">{userName}</span>
-              <span className="text-[10px] text-gray-400 truncate uppercase font-black tracking-tight">{userPlan}</span>
+              <span className="font-bold text-[12px] truncate dark:text-white tracking-tight">{userName}</span>
+              <span className="text-[9px] text-gray-400 font-black uppercase tracking-tighter">{userPlan}</span>
             </div>
           </div>
-          <button 
-            onClick={(e) => { e.stopPropagation(); onLogout(); }}
-            className="opacity-0 group-hover:opacity-100 transition-all p-1 text-gray-400 hover:text-red-500"
-          >
-            <LogOut className="w-4 h-4" />
+          <button onClick={onLogout} className="text-gray-300 hover:text-red-500 transition-colors">
+            <LogOut className="w-3.5 h-3.5" />
           </button>
         </div>
       </div>
