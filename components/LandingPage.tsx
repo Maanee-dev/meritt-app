@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { 
   CheckCircle2, 
@@ -381,7 +380,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin })
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-             {currentPlans.map((plan) => (
+             {currentPlans.map((plan: any) => (
                 <div 
                   key={plan.id}
                   className={`group bg-white p-12 rounded-[56px] border-2 transition-all hover:translate-y-[-12px] flex flex-col reveal stagger-child ${
