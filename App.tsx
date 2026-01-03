@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { HashRouter as Router } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
@@ -10,7 +9,7 @@ import Messages from './components/Messages';
 import Wallet from './components/Wallet';
 import Settings from './components/Settings';
 import CommandPalette from './components/CommandPalette';
-import Auth from './components/Login'; // Kept the file name Login.tsx but it's now Auth component
+import Auth from './components/Login';
 import BottomNav from './components/BottomNav';
 import LandingPage from './components/LandingPage';
 import { TabType, UserRole, User } from './types';
@@ -81,19 +80,16 @@ const App: React.FC = () => {
     if (view === 'public-marketplace') {
       return (
         <div className="min-h-screen bg-white dark:bg-dark">
-          <header className="h-[60px] border-b border-[#E2E8F0] dark:border-dark-border bg-white dark:bg-dark flex items-center justify-between px-6">
-            <div className="flex items-center gap-2 cursor-pointer" onClick={() => setView('landing')}>
-              <div className="w-8 h-8 bg-brand rounded-lg flex items-center justify-center">
-                 <svg width="16" height="16" viewBox="0 0 1000 1000" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M243.3 539.1L414 243.3L539.1 414.1L243.3 539.1Z" fill="white"/><path d="M414.1 414.1L539.1 243.3L700 519.8L700 812.2L626.9 812.2L626.9 519.8L414.1 414.1Z" fill="white"/><path d="M414.1 539.1L414.1 812.2L341 812.2L341 539.1L414.1 539.1Z" fill="white"/></svg>
-              </div>
-              <span className="font-bold text-brand text-lg">meritt.</span>
+          <header className="h-[64px] border-b border-[#E2E8F0] dark:border-dark-border bg-white dark:bg-dark flex items-center justify-between px-6">
+            <div className="flex items-center cursor-pointer" onClick={() => setView('landing')}>
+              <span className="brand-text text-2xl text-brand">meritt.</span>
             </div>
             <div className="flex gap-4">
-               <button onClick={() => setView('login')} className="text-gray-500 font-bold text-sm">Log In</button>
-               <button onClick={() => setView('login')} className="bg-brand text-white px-4 py-1.5 rounded-full font-bold text-sm">Join Merit</button>
+               <button onClick={() => setView('login')} className="text-gray-500 font-bold text-sm hover:text-brand transition-colors">Log In</button>
+               <button onClick={() => setView('login')} className="bg-brand text-white px-5 py-2 rounded-xl font-black text-xs uppercase tracking-widest shadow-lg shadow-brand/20">Join</button>
             </div>
           </header>
-          <main className="p-6 max-w-7xl mx-auto">
+          <main className="p-4 md:p-8 max-w-7xl mx-auto">
              <Marketplace role="user" isPublic onAuthRequired={handleRequestAuth} />
           </main>
         </div>
