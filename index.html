@@ -1,11 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Meritt Workspace</title>
-    <!-- Tailwind is still via CDN for easy theme configuration -->
+    <!-- Tailwind via CDN - Fine for prototypes, for production consider PostCSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -59,7 +58,6 @@
 </head>
 <body class="bg-white text-[#111111] antialiased">
     <div id="root"></div>
-    <!-- Point directly to the entry file; Vite will resolve this during build -->
     <script type="module" src="./index.tsx"></script>
 </body>
 </html>
