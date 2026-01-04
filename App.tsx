@@ -74,6 +74,8 @@ const App: React.FC = () => {
           onExplore={handleExploreMarketplace} 
           onLogin={() => setView('login')} 
           onJoin={() => setView('login')} 
+          darkMode={darkMode}
+          setDarkMode={setDarkMode}
         />
       );
     }
@@ -85,6 +87,12 @@ const App: React.FC = () => {
               <span className="brand-text text-2xl text-brand">meritt.</span>
             </div>
             <div className="flex gap-4">
+               <button 
+                  onClick={() => setDarkMode(!darkMode)}
+                  className="p-2 text-gray-400 hover:text-brand transition-all rounded-xl hover:bg-slate-50 dark:hover:bg-dark-surface"
+                >
+                  {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+               </button>
                <button onClick={() => setView('login')} className="text-gray-500 font-bold text-sm hover:text-brand transition-colors">Log In</button>
                <button onClick={() => setView('login')} className="bg-brand text-white px-5 py-2 rounded-xl font-black text-xs uppercase tracking-widest shadow-lg shadow-brand/20">Join</button>
             </div>
@@ -142,5 +150,7 @@ const App: React.FC = () => {
     </Router>
   );
 };
+
+import { Sun, Moon } from 'lucide-react';
 
 export default App;

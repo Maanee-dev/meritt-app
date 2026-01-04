@@ -29,13 +29,17 @@ import {
   Target,
   ArrowUpRight,
   ExternalLink,
-  MessageSquare
+  MessageSquare,
+  Sun,
+  Moon
 } from 'lucide-react';
 
 interface LandingPageProps {
   onExplore: () => void;
   onLogin: () => void;
   onJoin: () => void;
+  darkMode: boolean;
+  setDarkMode: (val: boolean) => void;
 }
 
 const FAQ_ITEMS = [
@@ -45,7 +49,7 @@ const FAQ_ITEMS = [
   { q: "Can I use this for long-term resort work?", a: "For sure. Meritt handles everything from one-day design gigs to year-long resort rebranding projects. You can set up multiple milestones and track everything in your pipeline." }
 ];
 
-const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin }) => {
+const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin, darkMode, setDarkMode }) => {
   const [pricingType, setPricingType] = useState<'freelancer' | 'business'>('freelancer');
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -75,37 +79,39 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin })
   }, [pricingType]);
 
   const freelancerPlans = [
-    { id: 'ithibaaru', name: 'Ithibaaru', tagline: 'For Beginners', price: 'MVR 0', perk: '12% Fee', icon: Coffee, color: 'text-slate-400' },
-    { id: 'muraaja', name: 'Muraaja', tagline: 'Full-time Freelancer', price: 'MVR 49', perk: '7% Fee', icon: Zap, color: 'text-brand', featured: true },
-    { id: 'kamiyaabu', name: 'Kamiyaabu', tagline: 'Top-tier Talent', price: 'MVR 99', perk: '3% Fee', icon: Crown, color: 'text-yellow-500' }
+    { id: 'ithibaaru', name: 'Ithibaaru', thaanaName: 'އިތިބާރު', tagline: 'For Beginners', price: 'MVR 0', perk: '12% Fee', icon: Coffee, color: 'text-slate-400' },
+    { id: 'muraaja', name: 'Muraaja', thaanaName: 'މުރާޖާ', tagline: 'Full-time Freelancer', price: 'MVR 49', perk: '7% Fee', icon: Zap, color: 'text-brand', featured: true },
+    { id: 'kamiyaabu', name: 'Kamiyaabu', thaanaName: 'ކާމިޔާބު', tagline: 'Top-tier Talent', price: 'MVR 99', perk: '3% Fee', icon: Crown, color: 'text-yellow-500' }
   ];
 
   const businessPlans = [
-    { id: 'maqaamu', name: 'Maqaamu', tagline: 'Single Hires', price: 'MVR 0', perk: '1 Active Gig', icon: Layers, color: 'text-slate-400' },
-    { id: 'ithigaadh', name: 'Ithigaadh', tagline: 'Growing Businesses', price: 'MVR 99', perk: 'Unlimited Gigs', icon: TrendingUp, color: 'text-brand', featured: true },
-    { id: 'sulthaan', name: 'Sulthaan', tagline: 'Premium Support', price: 'MVR 299', perk: 'Personal Manager', icon: Trophy, color: 'text-brand' }
+    { id: 'maqaamu', name: 'Maqaamu', thaanaName: 'މަޤާމު', tagline: 'Single Hires', price: 'MVR 0', perk: '1 Active Gig', icon: Layers, color: 'text-slate-400' },
+    { id: 'ithigaadh', name: 'Ithigaadh', thaanaName: 'އިއުތިޤާދު', tagline: 'Growing Businesses', price: 'MVR 99', perk: 'Unlimited Gigs', icon: TrendingUp, color: 'text-brand', featured: true },
+    { id: 'sulthaan', name: 'Sulthaan', thaanaName: 'ސުލްޠާން', tagline: 'Premium Support', price: 'MVR 299', perk: 'Dedicated Manager', icon: Trophy, color: 'text-brand' }
   ];
 
   const currentPlans = pricingType === 'freelancer' ? freelancerPlans : businessPlans;
 
   return (
-    <div className="landing-root bg-[#FDFDFF] overflow-x-hidden min-h-screen text-slate-900 selection:bg-brand selection:text-white">
+    <div className="landing-root bg-[#FDFDFF] dark:bg-dark overflow-x-hidden min-h-screen text-slate-900 dark:text-slate-100 selection:bg-brand selection:text-white transition-colors duration-500">
       <style>{`
         .reveal { opacity: 0; transform: translateY(30px); transition: all 1s cubic-bezier(0.19, 1, 0.22, 1); }
         .reveal-left { opacity: 0; transform: translateX(-40px); transition: all 1.2s cubic-bezier(0.19, 1, 0.22, 1); }
         .reveal-right { opacity: 0; transform: translateX(40px); transition: all 1.2s cubic-bezier(0.19, 1, 0.22, 1); }
         .active { opacity: 1; transform: translate(0, 0); }
         .glass-card { background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(24px); border: 1px solid rgba(255, 255, 255, 0.4); }
+        .dark .glass-card { background: rgba(24, 24, 27, 0.6); border: 1px solid rgba(255, 255, 255, 0.1); }
         @keyframes float { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-20px) rotate(2deg); } }
         .float-slow { animation: float 10s ease-in-out infinite; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .marquee { animation: marquee 40s linear infinite; }
         @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
         .blob { filter: blur(80px); opacity: 0.15; position: absolute; border-radius: 50%; z-index: 0; }
+        .thaana-text { direction: rtl; }
       `}</style>
 
       {/* Navigation */}
-      <header className={`fixed top-0 inset-x-0 h-[72px] md:h-[90px] z-[100] transition-all duration-500 ${scrolled || isMobileMenuOpen ? 'bg-white/90 backdrop-blur-2xl border-b border-slate-100 shadow-sm' : 'bg-transparent'}`}>
+      <header className={`fixed top-0 inset-x-0 h-[72px] md:h-[90px] z-[100] transition-all duration-500 ${isMobileMenuOpen ? 'bg-white dark:bg-dark border-b border-slate-100 dark:border-dark-border' : (scrolled ? 'bg-white/90 dark:bg-dark/90 backdrop-blur-2xl border-b border-slate-100 dark:border-dark-border shadow-sm' : 'bg-transparent')}`}>
         <div className="container mx-auto px-6 h-full flex justify-between items-center">
           <div className="flex items-center cursor-pointer group" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
             <span className="brand-text text-2xl md:text-3xl text-brand transition-all group-hover:tracking-widest">meritt.</span>
@@ -119,29 +125,44 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin })
             ))}
           </nav>
 
-          <div className="hidden lg:flex items-center gap-8">
-            <button onClick={onLogin} className="text-[12px] font-bold text-slate-500 hover:text-brand">Login</button>
+          <div className="hidden lg:flex items-center gap-6">
+            <button 
+              onClick={() => setDarkMode(!darkMode)}
+              className="p-2.5 text-slate-400 hover:text-brand transition-all rounded-2xl hover:bg-slate-50 dark:hover:bg-dark-surface"
+              title="Toggle Theme"
+            >
+              {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+            </button>
+            <button onClick={onLogin} className="text-[12px] font-bold text-slate-500 dark:text-slate-400 hover:text-brand transition-colors">Login</button>
             <button onClick={onJoin} className="bg-brand text-white px-10 py-4 rounded-2xl text-[11px] font-black uppercase tracking-[0.2em] shadow-2xl shadow-brand/30 hover:scale-105 active:scale-95 transition-all">
               Sign Up
             </button>
           </div>
 
-          <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="lg:hidden p-3 bg-slate-50/50 rounded-2xl backdrop-blur-sm border border-slate-100">
-            {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+          <div className="lg:hidden flex items-center gap-3">
+            <button 
+              onClick={() => setDarkMode(!darkMode)}
+              className={`p-2.5 text-slate-400 rounded-2xl border ${isMobileMenuOpen ? 'bg-transparent border-slate-100 dark:border-dark-border' : 'bg-slate-50/50 dark:bg-dark-surface/50 border-slate-100 dark:border-dark-border'}`}
+            >
+              {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+            </button>
+            <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className={`p-3 rounded-2xl border ${isMobileMenuOpen ? 'bg-transparent border-slate-100 dark:border-dark-border' : 'bg-slate-50/50 dark:bg-dark-surface/50 backdrop-blur-sm border-slate-100 dark:border-dark-border'}`}>
+              {isMobileMenuOpen ? <X className="w-6 h-6 dark:text-white" /> : <Menu className="w-6 h-6 dark:text-white" />}
+            </button>
+          </div>
         </div>
 
-        {/* Mobile Nav Overlay - Now matches navbar style */}
+        {/* Mobile Nav Overlay - Changed to whole black or whole white */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden fixed inset-0 top-[72px] bg-white/95 backdrop-blur-2xl z-[100] p-8 flex flex-col gap-10 animate-in fade-in slide-in-from-top-4">
+          <div className="lg:hidden fixed inset-0 top-[72px] bg-white dark:bg-dark z-[100] p-8 flex flex-col gap-10 animate-in fade-in slide-in-from-top-4">
              <nav className="flex flex-col gap-8 text-3xl font-black tracking-tighter">
                <button onClick={() => { onExplore(); setIsMobileMenuOpen(false); }} className="text-left text-brand">Browse Gigs</button>
-               <a href="#howitworks" onClick={() => setIsMobileMenuOpen(false)}>How it works</a>
-               <a href="#pricing" onClick={() => setIsMobileMenuOpen(false)}>Pricing</a>
-               <a href="#about" onClick={() => setIsMobileMenuOpen(false)}>About Us</a>
+               <a href="#howitworks" className="dark:text-white" onClick={() => setIsMobileMenuOpen(false)}>How it works</a>
+               <a href="#pricing" className="dark:text-white" onClick={() => setIsMobileMenuOpen(false)}>Pricing</a>
+               <a href="#about" className="dark:text-white" onClick={() => setIsMobileMenuOpen(false)}>About Us</a>
              </nav>
              <div className="mt-auto flex flex-col gap-4">
-               <button onClick={onLogin} className="w-full py-6 text-slate-600 font-bold border-2 border-slate-100 rounded-3xl">Login</button>
+               <button onClick={onLogin} className="w-full py-6 text-slate-600 dark:text-slate-300 font-bold border-2 border-slate-100 dark:border-dark-border rounded-3xl">Login</button>
                <button onClick={onJoin} className="w-full py-6 bg-brand text-white font-bold rounded-3xl shadow-2xl shadow-brand/30">Get Started</button>
              </div>
           </div>
@@ -149,7 +170,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin })
       </header>
 
       {/* Hero Section */}
-      <section className="relative min-h-[100vh] flex items-center pt-24 overflow-hidden">
+      <section className="relative min-h-[100vh] flex items-center pt-24 overflow-hidden bg-white dark:bg-dark">
         <div className="blob w-[600px] h-[600px] bg-brand top-[-10%] left-[-10%]"></div>
         <div className="blob w-[500px] h-[500px] bg-blue-300 bottom-[10%] right-[-5%]"></div>
         
@@ -160,21 +181,21 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin })
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
               </span>
-              <span className="text-[10px] font-black text-brand uppercase tracking-[0.3em]">Verified Maldivian Platform</span>
+              <span className="text-[10px] font-black text-brand uppercase tracking-[0.3em]">މަރުހަބާ - Verified Maldivian Platform</span>
             </div>
-            <h1 className="text-6xl sm:text-8xl lg:text-[120px] font-black leading-[0.85] tracking-tighter mb-10">
+            <h1 className="text-6xl sm:text-8xl lg:text-[120px] font-black leading-[0.85] tracking-tighter mb-10 dark:text-white">
               Your Home <br />
               for Expert <br />
               <span className="text-brand">Gigs.</span>
             </h1>
-            <p className="text-lg sm:text-2xl text-slate-500 mb-12 leading-relaxed font-medium">
-              Find the best local talent or land your next big resort project. Secure MVR payouts directly to your BML or MIB account.
+            <p className="text-lg sm:text-2xl text-slate-500 dark:text-slate-400 mb-12 leading-relaxed font-medium">
+              Find the best local talent or land your next big resort project. <span className="thaana-text block md:inline font-bold">ރާއްޖޭގެ ފަންނުވެރިންނަށް ހާއްސަ ޕްލެޓްފޯމެއް.</span> Secure MVR payouts directly to your BML or MIB account.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-5">
               <button onClick={onJoin} className="w-full sm:w-auto px-12 py-6 bg-brand text-white rounded-[32px] font-black text-[15px] shadow-[0_20px_50px_rgba(0,71,255,0.3)] hover:translate-y-[-4px] active:translate-y-0 transition-all flex items-center justify-center gap-4">
                 Start Working <ArrowRight className="w-5 h-5" />
               </button>
-              <button onClick={onExplore} className="w-full sm:w-auto px-12 py-6 bg-white border-2 border-slate-100 rounded-[32px] font-black text-[15px] text-slate-600 hover:border-brand hover:text-brand transition-all">
+              <button onClick={onExplore} className="w-full sm:w-auto px-12 py-6 bg-white dark:bg-dark-surface border-2 border-slate-100 dark:border-dark-border rounded-[32px] font-black text-[15px] text-slate-600 dark:text-slate-300 hover:border-brand hover:text-brand transition-all">
                 Find Talent
               </button>
             </div>
@@ -190,36 +211,36 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin })
                   </div>
                   <div>
                     <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Safety Status</p>
-                    <p className="text-[18px] font-black">Verified by e-Faas</p>
+                    <p className="text-[18px] font-black dark:text-white">e-Faas Verified</p>
                   </div>
                 </div>
               </div>
 
-              <div className="w-full aspect-[4/5] bg-white rounded-[64px] p-4 shadow-[0_40px_100px_rgba(0,0,0,0.08)] ring-[20px] ring-slate-50">
-                 <div className="h-full border border-slate-100 rounded-[50px] p-10 flex flex-col">
+              <div className="w-full aspect-[4/5] bg-white dark:bg-dark-surface rounded-[64px] p-4 shadow-[0_40px_100px_rgba(0,0,0,0.08)] ring-[20px] ring-slate-50 dark:ring-dark-border/50">
+                 <div className="h-full border border-slate-100 dark:border-dark-border rounded-[50px] p-10 flex flex-col">
                    <div className="flex items-center justify-between mb-16">
                      <span className="brand-text text-brand text-3xl">meritt.</span>
                      <div className="flex gap-2.5">
-                       <div className="w-3.5 h-3.5 rounded-full bg-slate-100"></div>
-                       <div className="w-3.5 h-3.5 rounded-full bg-slate-100"></div>
+                       <div className="w-3.5 h-3.5 rounded-full bg-slate-100 dark:bg-slate-800"></div>
+                       <div className="w-3.5 h-3.5 rounded-full bg-slate-100 dark:bg-slate-800"></div>
                        <div className="w-3.5 h-3.5 rounded-full bg-brand/40"></div>
                      </div>
                    </div>
                    <div className="space-y-6 flex-1">
                      {[1, 2, 3].map(i => (
-                       <div key={i} className="flex items-center justify-between p-6 border border-slate-50 rounded-[32px] bg-slate-50/40 hover:bg-white hover:border-slate-200 hover:shadow-xl transition-all group cursor-default">
+                       <div key={i} className="flex items-center justify-between p-6 border border-slate-50 dark:border-dark-border rounded-[32px] bg-slate-50/40 dark:bg-dark/40 hover:bg-white dark:hover:bg-dark hover:border-slate-200 hover:shadow-xl transition-all group cursor-default">
                          <div className="flex items-center gap-5">
                             <div className="w-12 h-12 bg-brand/10 rounded-2xl flex items-center justify-center text-brand font-black text-xs">JD</div>
                             <div className="space-y-2">
-                               <div className="w-32 h-2.5 bg-slate-200 rounded-full group-hover:bg-brand/20 transition-colors"></div>
-                               <div className="w-20 h-2 bg-slate-100 rounded-full"></div>
+                               <div className="w-32 h-2.5 bg-slate-200 dark:bg-slate-700 rounded-full group-hover:bg-brand/20 transition-colors"></div>
+                               <div className="w-20 h-2 bg-slate-100 dark:bg-slate-800 rounded-full"></div>
                             </div>
                          </div>
                          <ArrowUpRight className="w-5 h-5 text-slate-300 group-hover:text-brand transition-all" />
                        </div>
                      ))}
                    </div>
-                   <div className="mt-auto p-10 bg-slate-900 rounded-[48px] text-white">
+                   <div className="mt-auto p-10 bg-slate-900 dark:bg-brand rounded-[48px] text-white">
                       <div className="flex justify-between items-center mb-4">
                         <span className="text-[10px] font-black uppercase tracking-[0.3em] opacity-60">Payout Node</span>
                         <div className="flex items-center gap-2">
@@ -228,7 +249,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin })
                         </div>
                       </div>
                       <div className="h-2 w-full bg-white/10 rounded-full overflow-hidden">
-                         <div className="h-full bg-brand w-[88%]"></div>
+                         <div className="h-full bg-white w-[88%]"></div>
                       </div>
                    </div>
                  </div>
@@ -239,45 +260,43 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin })
       </section>
 
       {/* Social Trust Marquee */}
-      <section className="py-24 bg-white overflow-hidden border-y border-slate-100">
+      <section className="py-24 bg-white dark:bg-dark-surface overflow-hidden border-y border-slate-100 dark:border-dark-border transition-colors">
         <div className="container mx-auto px-6 mb-16 reveal">
-          <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.5em] text-center">Trusted by Businesses Across the Islands</p>
+          <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-[0.5em] text-center">Trusted by Businesses Across the Islands</p>
         </div>
         <div className="flex marquee-container">
           <div className="flex gap-20 marquee items-center pr-20">
             {['Oceanic Retail', 'Boutique Maldives', 'Island Flavors', 'ResortGroup', 'Maldives Tech', 'Coral Ventures', 'Aqua Digital'].map((brand, idx) => (
-              <span key={idx} className="text-4xl md:text-5xl font-black text-slate-200 hover:text-brand transition-colors cursor-default tracking-tighter shrink-0">{brand}.</span>
+              <span key={idx} className="text-4xl md:text-5xl font-black text-slate-200 dark:text-slate-800 hover:text-brand transition-colors cursor-default tracking-tighter shrink-0">{brand}.</span>
             ))}
           </div>
           <div className="flex gap-20 marquee items-center pr-20">
             {['Oceanic Retail', 'Boutique Maldives', 'Island Flavors', 'ResortGroup', 'Maldives Tech', 'Coral Ventures', 'Aqua Digital'].map((brand, idx) => (
-              <span key={idx} className="text-4xl md:text-5xl font-black text-slate-200 hover:text-brand transition-colors cursor-default tracking-tighter shrink-0">{brand}.</span>
+              <span key={idx} className="text-4xl md:text-5xl font-black text-slate-200 dark:text-slate-800 hover:text-brand transition-colors cursor-default tracking-tighter shrink-0">{brand}.</span>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Bento Grid Features - IMPROVED RESPONSIVE ARCHITECTURE */}
-      <section id="howitworks" className="py-32 md:py-48 bg-[#F9FBFF]">
+      {/* Bento Grid Features */}
+      <section id="howitworks" className="py-32 md:py-48 bg-[#F9FBFF] dark:bg-dark transition-colors">
         <div className="container mx-auto px-6">
           <div className="max-w-3xl mb-16 md:mb-24 reveal">
             <h2 className="text-brand font-black text-[12px] uppercase tracking-[0.5em] mb-6 md:mb-10">The Platform</h2>
-            <h3 className="text-4xl sm:text-5xl md:text-8xl font-black tracking-tighter leading-[1] md:leading-[0.85]">Built for Real <br className="hidden sm:block" /> Gigs in MV.</h3>
+            <h3 className="text-4xl sm:text-5xl md:text-8xl font-black tracking-tighter leading-[1] md:leading-[0.85] dark:text-white">Built for Real <br className="hidden sm:block" /> Gigs in MV.</h3>
+            <p className="thaana-text mt-6 text-2xl font-bold text-brand/80">މަސައްކަތްތައް ހޯދުމަށް ފަސޭހަ މަގެއް.</p>
           </div>
 
-          {/* Responsive Grid Layout */}
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 auto-rows-auto md:auto-rows-[minmax(0,1fr)]">
-            
-            {/* Feature 1 - Direct MVR Settlement */}
-            <div className="md:col-span-8 bg-white border border-slate-100 rounded-[40px] md:rounded-[56px] p-8 md:p-12 hover:shadow-2xl transition-all reveal stagger-child flex flex-col md:flex-row gap-8 md:gap-10 items-center overflow-hidden">
+            <div className="md:col-span-8 bg-white dark:bg-dark-surface border border-slate-100 dark:border-dark-border rounded-[40px] md:rounded-[56px] p-8 md:p-12 hover:shadow-2xl transition-all reveal stagger-child flex flex-col md:flex-row gap-8 md:gap-10 items-center overflow-hidden">
               <div className="flex-1 order-2 md:order-1">
                 <div className="w-14 h-14 md:w-16 md:h-16 bg-brand rounded-2xl md:rounded-3xl flex items-center justify-center text-white mb-6 md:mb-8 shadow-xl shadow-brand/20">
                   <CreditCard className="w-7 h-7 md:w-8 md:h-8" />
                 </div>
-                <h4 className="text-2xl md:text-3xl font-black mb-4 tracking-tight">Direct MVR Payouts</h4>
-                <p className="text-slate-500 text-base md:text-lg leading-relaxed font-medium">No more waiting weeks for payments. We work directly with local banks so you get your MVR quickly and safely. Just link your BML or MIB card.</p>
+                <h4 className="text-2xl md:text-3xl font-black mb-4 tracking-tight dark:text-white">Direct MVR Payouts</h4>
+                <p className="text-slate-500 dark:text-slate-400 text-base md:text-lg leading-relaxed font-medium">No more waiting weeks for payments. <span className="thaana-text font-bold">ބޭންކަށް ސީދާ ފައިސާ ޖަމާވާނެ.</span> Just link your BML or MIB card.</p>
               </div>
-              <div className="w-full md:w-1/2 bg-slate-50 rounded-[32px] md:rounded-[40px] p-6 md:p-8 border border-slate-100 md:rotate-2 md:translate-x-10 md:translate-y-10 order-1 md:order-2">
+              <div className="w-full md:w-1/2 bg-slate-50 dark:bg-dark rounded-[32px] md:rounded-[40px] p-6 md:p-8 border border-slate-100 dark:border-dark-border md:rotate-2 md:translate-x-10 md:translate-y-10 order-1 md:order-2">
                  <div className="space-y-4">
                     <div className="flex justify-between items-center text-[10px] font-black uppercase text-slate-400">
                       <span>BML Settlement</span>
@@ -291,125 +310,87 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin })
               </div>
             </div>
 
-            {/* Feature 2 - e-Faas */}
-            <div className="md:col-span-4 md:row-span-2 bg-slate-900 text-white border border-slate-800 rounded-[40px] md:rounded-[56px] p-8 md:p-12 hover:shadow-2xl transition-all reveal stagger-child flex flex-col relative overflow-hidden group">
-              <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-brand/20 blur-[100px] rounded-full group-hover:bg-brand/40 transition-all duration-700"></div>
+            <div className="md:col-span-4 md:row-span-2 bg-slate-900 dark:bg-brand text-white border border-slate-800 dark:border-white/10 rounded-[40px] md:rounded-[56px] p-8 md:p-12 hover:shadow-2xl transition-all reveal stagger-child flex flex-col relative overflow-hidden group">
+              <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-white/10 blur-[100px] rounded-full group-hover:bg-white/20 transition-all duration-700"></div>
               <div className="relative z-10 h-full flex flex-col">
                 <div className="w-14 h-14 md:w-16 md:h-16 bg-white/10 rounded-2xl md:rounded-3xl flex items-center justify-center mb-8 md:mb-10 border border-white/10">
-                  <ShieldCheck className="w-7 h-7 md:w-8 md:h-8 text-brand" />
+                  <ShieldCheck className="w-7 h-7 md:w-8 md:h-8 text-white" />
                 </div>
                 <h4 className="text-2xl md:text-3xl font-black mb-4 md:mb-6 tracking-tight">Vetted by e-Faas</h4>
-                <p className="text-slate-400 text-base md:text-lg leading-relaxed font-medium mb-8 md:mb-12">Every account is linked to e-Faas. This means you only work with real, verified people. No scammers, just real business.</p>
+                <p className="text-white/80 text-base md:text-lg leading-relaxed font-medium mb-8 md:mb-12">Every account is linked to e-Faas. <span className="thaana-text font-bold block">އީ-ފާސް އިން ވެރިފައި ކުރެވިފައި.</span> This ensures you only work with real people.</p>
                 <div className="mt-auto pt-8 md:pt-10 border-t border-white/10">
                   <div className="flex items-center gap-4 p-4 bg-white/5 rounded-[24px] border border-white/10">
-                    <div className="w-10 h-10 bg-brand/20 rounded-xl flex items-center justify-center">
-                      <Smartphone className="w-5 h-5 text-brand" />
+                    <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
+                      <Smartphone className="w-5 h-5 text-white" />
                     </div>
                     <div className="flex-1 space-y-1.5">
-                       <div className="h-2 w-full bg-white/10 rounded-full"></div>
-                       <div className="h-2 w-2/3 bg-white/5 rounded-full"></div>
+                       <div className="h-2 w-full bg-white/20 rounded-full"></div>
+                       <div className="h-2 w-2/3 bg-white/10 rounded-full"></div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Feature 3 - Escrow Protocol */}
-            <div className="md:col-span-4 bg-white border border-slate-100 rounded-[40px] md:rounded-[56px] p-8 md:p-12 hover:shadow-2xl transition-all reveal stagger-child">
+            <div className="md:col-span-4 bg-white dark:bg-dark-surface border border-slate-100 dark:border-dark-border rounded-[40px] md:rounded-[56px] p-8 md:p-12 hover:shadow-2xl transition-all reveal stagger-child">
               <div className="w-12 h-12 md:w-14 md:h-14 bg-emerald-500 rounded-2xl md:rounded-3xl flex items-center justify-center text-white mb-6 md:mb-8 shadow-xl shadow-emerald-500/20">
                 <Lock className="w-6 h-6 md:w-7 md:h-7" />
               </div>
-              <h4 className="text-xl md:text-2xl font-black mb-4 tracking-tight">Secure Escrow</h4>
-              <p className="text-slate-500 text-sm md:text-base font-medium leading-relaxed">Clients pay upfront into a safe account. Freelancers get paid once the job is approved. Simple and fair for everyone.</p>
+              <h4 className="text-xl md:text-2xl font-black mb-4 tracking-tight dark:text-white">Secure Escrow</h4>
+              <p className="text-slate-500 dark:text-slate-400 text-sm md:text-base font-medium leading-relaxed">Clients pay upfront into a safe account. <span className="thaana-text font-bold">ރައްކާތެރި ފައިސާގެ މުއާމަލާތް.</span> Simple and fair.</p>
             </div>
 
-            {/* Feature 4 - Strategic Filters */}
-            <div className="md:col-span-4 bg-white border border-slate-100 rounded-[40px] md:rounded-[56px] p-8 md:p-12 hover:shadow-2xl transition-all reveal stagger-child">
+            <div className="md:col-span-4 bg-white dark:bg-dark-surface border border-slate-100 dark:border-dark-border rounded-[40px] md:rounded-[56px] p-8 md:p-12 hover:shadow-2xl transition-all reveal stagger-child">
               <div className="w-12 h-12 md:w-14 md:h-14 bg-yellow-500 rounded-2xl md:rounded-3xl flex items-center justify-center text-white mb-6 md:mb-8 shadow-xl shadow-yellow-500/20">
                 <Target className="w-6 h-6 md:w-7 md:h-7" />
               </div>
-              <h4 className="text-xl md:text-2xl font-black mb-4 tracking-tight">Atoll Filters</h4>
-              <p className="text-slate-500 text-sm md:text-base font-medium leading-relaxed">Search for talent based on their atoll or island. Perfect for when you need someone on-site or close by.</p>
+              <h4 className="text-xl md:text-2xl font-black mb-4 tracking-tight dark:text-white">Atoll Filters</h4>
+              <p className="text-slate-500 dark:text-slate-400 text-sm md:text-base font-medium leading-relaxed">Search for talent based on their atoll. <span className="thaana-text font-bold">އަތޮޅުތަކަށް ހާއްސަ ފިލްޓާ.</span> Perfect for local needs.</p>
             </div>
-
           </div>
         </div>
       </section>
 
-      {/* Network Horizontal Swiper */}
-      <section id="gigs" className="py-32 md:py-48 bg-white overflow-hidden">
-        <div className="container mx-auto px-6 mb-16 md:mb-24 reveal">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-10">
-             <div className="max-w-2xl">
-                <h3 className="text-4xl sm:text-5xl md:text-8xl font-black tracking-tighter leading-[1] md:leading-[0.85] mb-6 md:mb-8">Find the <br /> Best Gigs.</h3>
-                <p className="text-lg md:text-2xl text-slate-400 font-medium">The most active professional network in the Maldives is right here.</p>
-             </div>
-             <button onClick={onExplore} className="w-full md:w-auto px-10 md:px-14 py-5 md:py-6 bg-slate-900 text-white rounded-[24px] md:rounded-[32px] font-black text-[12px] md:text-[13px] uppercase tracking-widest shadow-2xl shadow-slate-900/20 hover:bg-brand transition-all flex items-center justify-center gap-4">
-                Explore Market <ExternalLink className="w-5 h-5" />
-             </button>
-          </div>
-        </div>
-
-        {/* Horizontal Scroll on Mobile / Grid on Desktop */}
-        <div className="px-6 md:px-0">
-          <div className="flex md:grid md:grid-cols-3 gap-6 md:gap-8 overflow-x-auto no-scrollbar pb-10 -mx-6 px-6 md:mx-0 md:container md:mx-auto">
-             {[
-               { cat: 'Software & Tech', count: '482 experts', icon: Cpu, color: 'bg-blue-500' },
-               { cat: 'Design & Creative', count: '290 designers', icon: Target, color: 'bg-brand' },
-               { cat: 'Digital Marketing', count: '150 pros', icon: Globe, color: 'bg-emerald-500' },
-               { cat: 'Events & Hosting', count: '98 leads', icon: Star, color: 'bg-yellow-500' },
-               { cat: 'Audit & Legal', count: '45 experts', icon: Shield, color: 'bg-slate-900' },
-               { cat: 'Translation', count: '120 nodes', icon: MessageSquare, color: 'bg-indigo-600' }
-             ].map((grid, i) => (
-               <div key={i} className="min-w-[280px] md:min-w-0 group p-8 md:p-10 bg-slate-50 rounded-[40px] md:rounded-[48px] hover:bg-brand hover:translate-y-[-12px] transition-all duration-500 reveal stagger-child">
-                  <div className="w-14 h-14 md:w-16 md:h-16 bg-white rounded-2xl md:rounded-3xl flex items-center justify-center mb-8 md:mb-10 shadow-xl group-hover:scale-110 transition-transform">
-                     <grid.icon className="w-7 h-7 md:w-8 md:h-8 text-brand" />
-                  </div>
-                  <h4 className="text-xl md:text-2xl font-black mb-2 group-hover:text-white transition-colors tracking-tight">{grid.cat}</h4>
-                  <p className="text-slate-400 font-bold uppercase text-[9px] md:text-[10px] tracking-widest group-hover:text-white/70 transition-colors">{grid.count}</p>
-               </div>
-             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Pricing / Tiers */}
-      <section id="pricing" className="py-32 md:py-48 bg-slate-50">
+      {/* Pricing Section */}
+      <section id="pricing" className="py-32 md:py-48 bg-slate-50 dark:bg-dark-surface transition-colors">
         <div className="container mx-auto px-6">
            <div className="max-w-4xl mx-auto text-center mb-16 md:mb-24 reveal">
-              <h2 className="text-[10px] md:text-[12px] font-black text-brand uppercase tracking-[0.6em] mb-6 md:mb-10">Simple Pricing</h2>
-              <h3 className="text-4xl sm:text-5xl md:text-9xl font-black tracking-tighter mb-8 md:mb-12 leading-[1] md:leading-[0.85]">Flexible <br className="hidden md:block" /> Tiers.</h3>
-              <div className="inline-flex items-center gap-2 p-1.5 bg-white rounded-[24px] md:rounded-[32px] shadow-sm">
-                <button onClick={() => setPricingType('freelancer')} className={`px-8 md:px-12 py-3 md:py-4 rounded-[20px] md:rounded-[26px] font-black text-[10px] md:text-[12px] uppercase tracking-widest transition-all ${pricingType === 'freelancer' ? 'bg-brand text-white shadow-2xl' : 'text-slate-400'}`}>Freelancer</button>
-                <button onClick={() => setPricingType('business')} className={`px-8 md:px-12 py-3 md:py-4 rounded-[20px] md:rounded-[26px] font-black text-[10px] md:text-[12px] uppercase tracking-widest transition-all ${pricingType === 'business' ? 'bg-brand text-white shadow-2xl' : 'text-slate-400'}`}>Business</button>
+              <h2 className="text-[10px] md:text-[12px] font-black text-brand uppercase tracking-[0.6em] mb-6 md:mb-10">އަގުތައް - Simple Pricing</h2>
+              <h3 className="text-4xl sm:text-5xl md:text-9xl font-black tracking-tighter mb-8 md:mb-12 leading-[1] md:leading-[0.85] dark:text-white">Flexible <br className="hidden md:block" /> Tiers.</h3>
+              <div className="inline-flex items-center gap-2 p-1.5 bg-white dark:bg-dark rounded-[24px] md:rounded-[32px] shadow-sm">
+                <button onClick={() => setPricingType('freelancer')} className={`px-8 md:px-12 py-3 md:py-4 rounded-[20px] md:rounded-[26px] font-black text-[10px] md:text-[12px] uppercase tracking-widest transition-all ${pricingType === 'freelancer' ? 'bg-brand text-white shadow-2xl' : 'text-slate-400 dark:text-slate-500'}`}>Freelancer</button>
+                <button onClick={() => setPricingType('business')} className={`px-8 md:px-12 py-3 md:py-4 rounded-[20px] md:rounded-[26px] font-black text-[10px] md:text-[12px] uppercase tracking-widest transition-all ${pricingType === 'business' ? 'bg-brand text-white shadow-2xl' : 'text-slate-400 dark:text-slate-500'}`}>Business</button>
               </div>
            </div>
 
            <div className="flex md:grid md:grid-cols-3 gap-6 md:gap-8 overflow-x-auto no-scrollbar pb-10 -mx-6 px-6 md:mx-0">
              {currentPlans.map((plan: any) => (
-               <div key={plan.id} className={`min-w-[300px] md:min-w-0 p-10 md:p-12 bg-white rounded-[48px] md:rounded-[64px] border-2 transition-all duration-500 reveal stagger-child flex flex-col ${plan.featured ? 'border-brand shadow-2xl md:scale-105 z-10' : 'border-slate-100 hover:border-brand/40 shadow-sm'}`}>
+               <div key={plan.id} className={`min-w-[300px] md:min-w-0 p-10 md:p-12 bg-white dark:bg-dark rounded-[48px] md:rounded-[64px] border-2 transition-all duration-500 reveal stagger-child flex flex-col ${plan.featured ? 'border-brand shadow-2xl md:scale-105 z-10' : 'border-slate-100 dark:border-dark-border hover:border-brand/40 shadow-sm'}`}>
                   <div className="mb-10 md:mb-14 text-center md:text-left">
-                     <div className={`w-16 h-16 md:w-20 md:h-20 rounded-[24px] md:rounded-[32px] bg-slate-50 flex items-center justify-center mb-8 md:mb-10 border border-slate-100 ${plan.color} mx-auto md:mx-0`}>
+                     <div className={`w-16 h-16 md:w-20 md:h-20 rounded-[24px] md:rounded-[32px] bg-slate-50 dark:bg-dark-surface flex items-center justify-center mb-8 md:mb-10 border border-slate-100 dark:border-dark-border ${plan.color} mx-auto md:mx-0`}>
                         <plan.icon className="w-8 h-8 md:w-10 md:h-10" />
                      </div>
-                     <h4 className="text-3xl md:text-4xl font-black tracking-tighter mb-2">{plan.name}</h4>
+                     <div className="flex items-center justify-center md:justify-start gap-3 mb-2">
+                        <h4 className="text-3xl md:text-4xl font-black tracking-tighter dark:text-white">{plan.name}</h4>
+                        <span className="thaana-text text-xl font-bold text-brand">{plan.thaanaName}</span>
+                     </div>
                      <div className="flex items-baseline justify-center md:justify-start gap-2">
-                        <span className="text-5xl md:text-6xl font-black text-slate-900">{plan.price}</span>
+                        <span className="text-5xl md:text-6xl font-black text-slate-900 dark:text-white">{plan.price}</span>
                         <span className="text-slate-400 text-xs md:text-sm font-black uppercase tracking-widest opacity-60">/mo</span>
                      </div>
                   </div>
                   <div className="space-y-4 md:space-y-6 mb-12 md:mb-16 flex-1">
-                     <div className="flex items-center gap-3 text-[14px] md:text-[15px] font-bold text-slate-600">
+                     <div className="flex items-center gap-3 text-[14px] md:text-[15px] font-bold text-slate-600 dark:text-slate-300">
                         <CheckCircle2 className="w-5 h-5 md:w-6 md:h-6 text-brand" /> <span>{plan.tagline}</span>
                      </div>
-                     <div className="flex items-center gap-3 text-[14px] md:text-[15px] font-bold text-slate-600">
+                     <div className="flex items-center gap-3 text-[14px] md:text-[15px] font-bold text-slate-600 dark:text-slate-300">
                         <CheckCircle2 className="w-5 h-5 md:w-6 md:h-6 text-brand" /> <span>{plan.perk}</span>
                      </div>
-                     <div className="flex items-center gap-3 text-[14px] md:text-[15px] font-bold text-slate-600">
+                     <div className="flex items-center gap-3 text-[14px] md:text-[15px] font-bold text-slate-600 dark:text-slate-300">
                         <CheckCircle2 className="w-5 h-5 md:w-6 md:h-6 text-brand" /> <span>Secured by Escrow</span>
                      </div>
                   </div>
-                  <button onClick={onJoin} className={`w-full py-5 md:py-6 rounded-[24px] md:rounded-[32px] font-black text-[12px] md:text-[14px] uppercase tracking-widest transition-all ${plan.featured ? 'bg-brand text-white shadow-2xl shadow-brand/30 hover:brightness-110' : 'bg-slate-50 text-slate-900 hover:border-brand hover:bg-white border border-slate-200'}`}>
+                  <button onClick={onJoin} className={`w-full py-5 md:py-6 rounded-[24px] md:rounded-[32px] font-black text-[12px] md:text-[14px] uppercase tracking-widest transition-all ${plan.featured ? 'bg-brand text-white shadow-2xl shadow-brand/30 hover:brightness-110' : 'bg-slate-50 dark:bg-dark-surface text-slate-900 dark:text-slate-300 hover:border-brand hover:bg-white dark:hover:bg-dark border border-slate-200 dark:border-dark-border'}`}>
                      Sign Up Now
                   </button>
                </div>
@@ -419,22 +400,22 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin })
       </section>
 
       {/* Protocols / FAQ */}
-      <section id="about" className="py-32 md:py-56 bg-white border-y border-slate-100">
+      <section id="about" className="py-32 md:py-56 bg-white dark:bg-dark border-y border-slate-100 dark:border-dark-border transition-colors">
         <div className="container mx-auto px-6 max-w-4xl">
            <div className="text-center mb-16 md:mb-24 reveal">
-              <h3 className="text-4xl sm:text-5xl md:text-8xl font-black tracking-tighter mb-6 md:mb-10 leading-[1] md:leading-[0.85]">Common Questions.</h3>
-              <p className="text-slate-400 font-medium text-lg md:text-xl leading-relaxed">Everything you need to know about working on Meritt.</p>
+              <h3 className="text-4xl sm:text-5xl md:text-8xl font-black tracking-tighter mb-6 md:mb-10 leading-[1] md:leading-[0.85] dark:text-white">Common Questions.</h3>
+              <p className="text-slate-400 dark:text-slate-500 font-medium text-lg md:text-xl leading-relaxed">Everything you need to know about working on Meritt.</p>
            </div>
            <div className="space-y-4 md:space-y-6">
               {FAQ_ITEMS.map((item, i) => (
-                 <div key={i} className={`border border-slate-200 rounded-[32px] md:rounded-[40px] overflow-hidden transition-all duration-500 ${openFaq === i ? 'bg-white shadow-2xl ring-[12px] md:ring-[16px] ring-brand/5' : 'bg-white shadow-sm hover:border-brand/40'}`}>
+                 <div key={i} className={`border border-slate-200 dark:border-dark-border rounded-[32px] md:rounded-[40px] overflow-hidden transition-all duration-500 ${openFaq === i ? 'bg-white dark:bg-dark-surface shadow-2xl ring-[12px] md:ring-[16px] ring-brand/5' : 'bg-white dark:bg-dark-surface shadow-sm hover:border-brand/40'}`}>
                     <button onClick={() => setOpenFaq(openFaq === i ? null : i)} className="w-full flex items-center justify-between p-8 md:p-10 text-left">
-                       <span className="font-black text-lg md:text-2xl pr-8 tracking-tight leading-tight">{item.q}</span>
+                       <span className="font-black text-lg md:text-2xl pr-8 tracking-tight leading-tight dark:text-white">{item.q}</span>
                        <ChevronDown className={`w-6 h-6 md:w-8 md:h-8 text-slate-300 transition-transform duration-500 ${openFaq === i ? 'rotate-180 text-brand' : ''}`} />
                     </button>
                     {openFaq === i && (
                       <div className="px-8 md:px-10 pb-10 md:pb-12 animate-in slide-in-from-top-4 duration-500">
-                         <p className="text-slate-500 text-base md:text-xl leading-relaxed font-medium">{item.a}</p>
+                         <p className="text-slate-500 dark:text-slate-400 text-base md:text-xl leading-relaxed font-medium">{item.a}</p>
                       </div>
                     )}
                  </div>
@@ -461,17 +442,17 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin })
       </section>
 
       {/* Footer */}
-      <footer className="pt-32 pb-16 md:pt-40 md:pb-20 bg-white">
+      <footer className="pt-32 pb-16 md:pt-40 md:pb-20 bg-white dark:bg-dark transition-colors">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-16 md:gap-20 mb-24 md:mb-32">
             <div className="lg:col-span-2">
                <span className="brand-text text-4xl md:text-5xl text-brand block mb-8 md:mb-12">meritt.</span>
-               <p className="text-slate-400 font-medium text-lg md:text-xl leading-relaxed max-w-sm">The leading professional engine for freelancers and businesses in the Maldives. Locally owned & operated.</p>
+               <p className="text-slate-400 dark:text-slate-500 font-medium text-lg md:text-xl leading-relaxed max-w-sm">The leading professional engine for freelancers and businesses in the Maldives. Locally owned & operated.</p>
             </div>
             <div className="lg:col-span-4 grid grid-cols-2 md:grid-cols-3 gap-10 md:gap-12">
                <div>
                   <h5 className="font-black text-[10px] md:text-[11px] uppercase tracking-[0.5em] text-slate-300 mb-8 md:mb-10">Platform</h5>
-                  <ul className="space-y-4 md:space-y-5 text-[14px] md:text-[15px] font-bold text-slate-600">
+                  <ul className="space-y-4 md:space-y-5 text-[14px] md:text-[15px] font-bold text-slate-600 dark:text-slate-400">
                      <li><a href="#" className="hover:text-brand transition-colors">Gig Board</a></li>
                      <li><a href="#" className="hover:text-brand transition-colors">Talent Search</a></li>
                      <li><a href="#" className="hover:text-brand transition-colors">Verification</a></li>
@@ -479,7 +460,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin })
                </div>
                <div>
                   <h5 className="font-black text-[10px] md:text-[11px] uppercase tracking-[0.5em] text-slate-300 mb-8 md:mb-10">Company</h5>
-                  <ul className="space-y-4 md:space-y-5 text-[14px] md:text-[15px] font-bold text-slate-600">
+                  <ul className="space-y-4 md:space-y-5 text-[14px] md:text-[15px] font-bold text-slate-600 dark:text-slate-400">
                      <li><a href="#" className="hover:text-brand transition-colors">About Us</a></li>
                      <li><a href="#" className="hover:text-brand transition-colors">Our Impact</a></li>
                      <li><a href="#" className="hover:text-brand transition-colors">Case Studies</a></li>
@@ -487,7 +468,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin })
                </div>
                <div>
                   <h5 className="font-black text-[10px] md:text-[11px] uppercase tracking-[0.5em] text-slate-300 mb-8 md:mb-10">Legal</h5>
-                  <ul className="space-y-4 md:space-y-5 text-[14px] md:text-[15px] font-bold text-slate-600">
+                  <ul className="space-y-4 md:space-y-5 text-[14px] md:text-[15px] font-bold text-slate-600 dark:text-slate-400">
                      <li><a href="#" className="hover:text-brand transition-colors">Privacy Policy</a></li>
                      <li><a href="#" className="hover:text-brand transition-colors">Terms of Service</a></li>
                      <li><a href="#" className="hover:text-brand transition-colors">Contact</a></li>
@@ -495,8 +476,8 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin })
                </div>
             </div>
           </div>
-          <div className="flex flex-col md:flex-row justify-between items-center gap-8 md:gap-10 pt-16 border-t border-slate-100">
-            <p className="text-[10px] md:text-[12px] font-black text-slate-300 uppercase tracking-widest text-center md:text-left leading-relaxed">© 2024 Meritt Maldives Pvt Ltd. Professional Engine v2.0.1</p>
+          <div className="flex flex-col md:flex-row justify-between items-center gap-8 md:gap-10 pt-16 border-t border-slate-100 dark:border-dark-border">
+            <p className="text-[12px] font-black text-slate-300 uppercase tracking-widest text-center md:text-left leading-relaxed">© 2024 Meritt Maldives Pvt Ltd. Professional Engine v2.0.1</p>
             <div className="flex flex-wrap justify-center items-center gap-6 md:gap-10 text-[10px] md:text-[11px] font-black uppercase tracking-widest text-emerald-500">
                <span className="flex items-center gap-3">
                   <span className="w-2 h-2 md:w-2.5 md:h-2.5 bg-emerald-500 rounded-full animate-pulse shadow-lg shadow-emerald-500/40"></span>
