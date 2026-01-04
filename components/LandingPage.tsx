@@ -39,10 +39,10 @@ interface LandingPageProps {
 }
 
 const FAQ_ITEMS = [
-  { q: "How secure is the MVR Escrow?", a: "Extremely. When a project is initiated, funds are legally secured in a neutral clearing node. We only release payments to the freelancer once the milestone deliverables are cryptographically approved by the client or verified through our resolution protocol." },
-  { q: "Is e-Faas mandatory for everyone?", a: "Yes. To maintain a high-trust professional ecosystem, all users must verify their identity via e-Faas. This ensures every project involves real individuals or legally registered entities in the Maldives." },
-  { q: "What are the settlement times for BML?", a: "Standard clearing takes 24-48 hours. Users on our Professional and Elite tiers enjoy Priority Clearing, often resulting in same-day settlements for local bank accounts." },
-  { q: "Can I use Meritt for long-term retainers?", a: "Absolutely. Meritt is designed for everything from 2-hour consultations to year-long resort rebrandings. Our pipeline tools specifically support complex milestone tracking." }
+  { q: "Is the MVR Escrow actually safe?", a: "Yes, 100%. When you start a project, the money is held in a secure clearing account. We only release the payment to the freelancer once the client clicks 'Approve' or the milestone is reached. No more chasing clients for payments." },
+  { q: "Do I really need e-Faas to join?", a: "Yes. To keep Meritt a space for serious professionals, everyone needs to verify their identity through e-Faas. This stops fake accounts and scams, making sure you're dealing with real people in the Maldives." },
+  { q: "How fast do I get my money in BML?", a: "Standard transfers take about 1-2 days. If you're on a Pro or Elite tier, we prioritize your clearing so you often get your MVR on the same day in your BML or MIB account." },
+  { q: "Can I use this for long-term resort work?", a: "For sure. Meritt handles everything from one-day design gigs to year-long resort rebranding projects. You can set up multiple milestones and track everything in your pipeline." }
 ];
 
 const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin }) => {
@@ -75,15 +75,15 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin })
   }, [pricingType]);
 
   const freelancerPlans = [
-    { id: 'ithibaaru', name: 'Ithibaaru', tagline: 'Entry Tier', price: 'MVR 0', perk: '12% Commission', icon: Coffee, color: 'text-slate-400' },
-    { id: 'muraaja', name: 'Muraaja', tagline: 'Professional Catalyst', price: 'MVR 49', perk: '7% Commission', icon: Zap, color: 'text-brand', featured: true },
-    { id: 'kamiyaabu', name: 'Kamiyaabu', tagline: 'Elite Authority', price: 'MVR 99', perk: '3% Commission', icon: Crown, color: 'text-yellow-500' }
+    { id: 'ithibaaru', name: 'Ithibaaru', tagline: 'For Beginners', price: 'MVR 0', perk: '12% Fee', icon: Coffee, color: 'text-slate-400' },
+    { id: 'muraaja', name: 'Muraaja', tagline: 'Full-time Freelancer', price: 'MVR 49', perk: '7% Fee', icon: Zap, color: 'text-brand', featured: true },
+    { id: 'kamiyaabu', name: 'Kamiyaabu', tagline: 'Top-tier Talent', price: 'MVR 99', perk: '3% Fee', icon: Crown, color: 'text-yellow-500' }
   ];
 
   const businessPlans = [
-    { id: 'maqaamu', name: 'Maqaamu', tagline: 'Standard Hire', price: 'MVR 0', perk: '1 Active Listing', icon: Layers, color: 'text-slate-400' },
-    { id: 'ithigaadh', name: 'Ithigaadh', tagline: 'Enterprise Scale', price: 'MVR 99', perk: 'Unlimited Postings', icon: TrendingUp, color: 'text-brand', featured: true },
-    { id: 'sulthaan', name: 'Sulthaan', tagline: 'Concierge Elite', price: 'MVR 299', perk: 'Dedicated Manager', icon: Trophy, color: 'text-brand' }
+    { id: 'maqaamu', name: 'Maqaamu', tagline: 'Single Hires', price: 'MVR 0', perk: '1 Active Gig', icon: Layers, color: 'text-slate-400' },
+    { id: 'ithigaadh', name: 'Ithigaadh', tagline: 'Growing Businesses', price: 'MVR 99', perk: 'Unlimited Gigs', icon: TrendingUp, color: 'text-brand', featured: true },
+    { id: 'sulthaan', name: 'Sulthaan', tagline: 'Premium Support', price: 'MVR 299', perk: 'Personal Manager', icon: Trophy, color: 'text-brand' }
   ];
 
   const currentPlans = pricingType === 'freelancer' ? freelancerPlans : businessPlans;
@@ -105,43 +105,43 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin })
       `}</style>
 
       {/* Navigation */}
-      <header className={`fixed top-0 inset-x-0 h-[72px] md:h-[90px] z-[100] transition-all duration-500 ${scrolled ? 'bg-white/80 backdrop-blur-xl border-b border-slate-100 shadow-sm' : 'bg-transparent'}`}>
+      <header className={`fixed top-0 inset-x-0 h-[72px] md:h-[90px] z-[100] transition-all duration-500 ${scrolled || isMobileMenuOpen ? 'bg-white/90 backdrop-blur-2xl border-b border-slate-100 shadow-sm' : 'bg-transparent'}`}>
         <div className="container mx-auto px-6 h-full flex justify-between items-center">
           <div className="flex items-center cursor-pointer group" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
             <span className="brand-text text-2xl md:text-3xl text-brand transition-all group-hover:tracking-widest">meritt.</span>
           </div>
 
           <nav className="hidden lg:flex items-center gap-12">
-            {['Marketplace', 'Protocol', 'Tiers', 'About'].map((item) => (
-              <a key={item} href={`#${item.toLowerCase()}`} className="text-[11px] font-black uppercase tracking-[0.3em] text-slate-400 hover:text-brand transition-colors">
+            {['Gigs', 'How it works', 'Pricing', 'About'].map((item) => (
+              <a key={item} href={`#${item.toLowerCase().replace(/\s+/g, '')}`} className="text-[11px] font-black uppercase tracking-[0.3em] text-slate-400 hover:text-brand transition-colors">
                 {item}
               </a>
             ))}
           </nav>
 
           <div className="hidden lg:flex items-center gap-8">
-            <button onClick={onLogin} className="text-[12px] font-bold text-slate-500 hover:text-brand">Sign In</button>
+            <button onClick={onLogin} className="text-[12px] font-bold text-slate-500 hover:text-brand">Login</button>
             <button onClick={onJoin} className="bg-brand text-white px-10 py-4 rounded-2xl text-[11px] font-black uppercase tracking-[0.2em] shadow-2xl shadow-brand/30 hover:scale-105 active:scale-95 transition-all">
-              Initialize Node
+              Sign Up
             </button>
           </div>
 
-          <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="lg:hidden p-3 bg-slate-50 rounded-2xl">
+          <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="lg:hidden p-3 bg-slate-50/50 rounded-2xl backdrop-blur-sm border border-slate-100">
             {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
 
-        {/* Mobile Nav Overlay */}
+        {/* Mobile Nav Overlay - Now matches navbar style */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden fixed inset-0 top-[72px] bg-white z-[100] p-8 flex flex-col gap-10 animate-in fade-in slide-in-from-top-4">
+          <div className="lg:hidden fixed inset-0 top-[72px] bg-white/95 backdrop-blur-2xl z-[100] p-8 flex flex-col gap-10 animate-in fade-in slide-in-from-top-4">
              <nav className="flex flex-col gap-8 text-3xl font-black tracking-tighter">
-               <button onClick={() => { onExplore(); setIsMobileMenuOpen(false); }} className="text-left text-brand">Marketplace</button>
-               <a href="#protocol" onClick={() => setIsMobileMenuOpen(false)}>Protocol</a>
-               <a href="#tiers" onClick={() => setIsMobileMenuOpen(false)}>Pricing</a>
-               <a href="#about" onClick={() => setIsMobileMenuOpen(false)}>About</a>
+               <button onClick={() => { onExplore(); setIsMobileMenuOpen(false); }} className="text-left text-brand">Browse Gigs</button>
+               <a href="#howitworks" onClick={() => setIsMobileMenuOpen(false)}>How it works</a>
+               <a href="#pricing" onClick={() => setIsMobileMenuOpen(false)}>Pricing</a>
+               <a href="#about" onClick={() => setIsMobileMenuOpen(false)}>About Us</a>
              </nav>
              <div className="mt-auto flex flex-col gap-4">
-               <button onClick={onLogin} className="w-full py-6 text-slate-600 font-bold border-2 border-slate-100 rounded-3xl">Sign In</button>
+               <button onClick={onLogin} className="w-full py-6 text-slate-600 font-bold border-2 border-slate-100 rounded-3xl">Login</button>
                <button onClick={onJoin} className="w-full py-6 bg-brand text-white font-bold rounded-3xl shadow-2xl shadow-brand/30">Get Started</button>
              </div>
           </div>
@@ -160,22 +160,22 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin })
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
               </span>
-              <span className="text-[10px] font-black text-brand uppercase tracking-[0.3em]">Node V1.0: Active & Vetted</span>
+              <span className="text-[10px] font-black text-brand uppercase tracking-[0.3em]">Verified Maldivian Platform</span>
             </div>
             <h1 className="text-6xl sm:text-8xl lg:text-[120px] font-black leading-[0.85] tracking-tighter mb-10">
-              The Island <br />
-              Professional <br />
-              <span className="text-brand">Engine.</span>
+              Your Home <br />
+              for Expert <br />
+              <span className="text-brand">Gigs.</span>
             </h1>
             <p className="text-lg sm:text-2xl text-slate-500 mb-12 leading-relaxed font-medium">
-              A high-density workspace for elite Maldivian talent and ambitious resorts. Powered by direct MVR Clearing and e-Faas authentication.
+              Find the best local talent or land your next big resort project. Secure MVR payouts directly to your BML or MIB account.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-5">
               <button onClick={onJoin} className="w-full sm:w-auto px-12 py-6 bg-brand text-white rounded-[32px] font-black text-[15px] shadow-[0_20px_50px_rgba(0,71,255,0.3)] hover:translate-y-[-4px] active:translate-y-0 transition-all flex items-center justify-center gap-4">
-                Join Ecosystem <ArrowRight className="w-5 h-5" />
+                Start Working <ArrowRight className="w-5 h-5" />
               </button>
               <button onClick={onExplore} className="w-full sm:w-auto px-12 py-6 bg-white border-2 border-slate-100 rounded-[32px] font-black text-[15px] text-slate-600 hover:border-brand hover:text-brand transition-all">
-                Browse Directory
+                Find Talent
               </button>
             </div>
           </div>
@@ -189,8 +189,8 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin })
                     <ShieldCheck className="w-7 h-7" />
                   </div>
                   <div>
-                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Trust Index</p>
-                    <p className="text-[18px] font-black">e-Faas Verified</p>
+                    <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Safety Status</p>
+                    <p className="text-[18px] font-black">Verified by e-Faas</p>
                   </div>
                 </div>
               </div>
@@ -221,10 +221,10 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin })
                    </div>
                    <div className="mt-auto p-10 bg-slate-900 rounded-[48px] text-white">
                       <div className="flex justify-between items-center mb-4">
-                        <span className="text-[10px] font-black uppercase tracking-[0.3em] opacity-60">Escrow Node</span>
+                        <span className="text-[10px] font-black uppercase tracking-[0.3em] opacity-60">Payout Node</span>
                         <div className="flex items-center gap-2">
                           <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></div>
-                          <span className="text-[10px] font-black uppercase tracking-widest">Synced</span>
+                          <span className="text-[10px] font-black uppercase tracking-widest">Active</span>
                         </div>
                       </div>
                       <div className="h-2 w-full bg-white/10 rounded-full overflow-hidden">
@@ -241,7 +241,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin })
       {/* Social Trust Marquee */}
       <section className="py-24 bg-white overflow-hidden border-y border-slate-100">
         <div className="container mx-auto px-6 mb-16 reveal">
-          <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.5em] text-center">Powering Distributed Excellence Across Atolls</p>
+          <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.5em] text-center">Trusted by Businesses Across the Islands</p>
         </div>
         <div className="flex marquee-container">
           <div className="flex gap-20 marquee items-center pr-20">
@@ -258,30 +258,30 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin })
       </section>
 
       {/* Bento Grid Features - IMPROVED RESPONSIVE ARCHITECTURE */}
-      <section id="protocol" className="py-32 md:py-48 bg-[#F9FBFF]">
+      <section id="howitworks" className="py-32 md:py-48 bg-[#F9FBFF]">
         <div className="container mx-auto px-6">
           <div className="max-w-3xl mb-16 md:mb-24 reveal">
-            <h2 className="text-brand font-black text-[12px] uppercase tracking-[0.5em] mb-6 md:mb-10">System Architecture</h2>
-            <h3 className="text-4xl sm:text-5xl md:text-8xl font-black tracking-tighter leading-[1] md:leading-[0.85]">Engineered for <br className="hidden sm:block" /> High-Trust Work.</h3>
+            <h2 className="text-brand font-black text-[12px] uppercase tracking-[0.5em] mb-6 md:mb-10">The Platform</h2>
+            <h3 className="text-4xl sm:text-5xl md:text-8xl font-black tracking-tighter leading-[1] md:leading-[0.85]">Built for Real <br className="hidden sm:block" /> Gigs in MV.</h3>
           </div>
 
           {/* Responsive Grid Layout */}
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8 auto-rows-auto md:auto-rows-[minmax(0,1fr)]">
             
-            {/* Feature 1 - Direct MVR Settlement (Spans 8 columns on desktop) */}
+            {/* Feature 1 - Direct MVR Settlement */}
             <div className="md:col-span-8 bg-white border border-slate-100 rounded-[40px] md:rounded-[56px] p-8 md:p-12 hover:shadow-2xl transition-all reveal stagger-child flex flex-col md:flex-row gap-8 md:gap-10 items-center overflow-hidden">
               <div className="flex-1 order-2 md:order-1">
                 <div className="w-14 h-14 md:w-16 md:h-16 bg-brand rounded-2xl md:rounded-3xl flex items-center justify-center text-white mb-6 md:mb-8 shadow-xl shadow-brand/20">
                   <CreditCard className="w-7 h-7 md:w-8 md:h-8" />
                 </div>
-                <h4 className="text-2xl md:text-3xl font-black mb-4 tracking-tight">Direct MVR Settlement</h4>
-                <p className="text-slate-500 text-base md:text-lg leading-relaxed font-medium">Native integration with BML and MIB ensure your funds land in your local account within 24 hours of milestone approval. No middlemen.</p>
+                <h4 className="text-2xl md:text-3xl font-black mb-4 tracking-tight">Direct MVR Payouts</h4>
+                <p className="text-slate-500 text-base md:text-lg leading-relaxed font-medium">No more waiting weeks for payments. We work directly with local banks so you get your MVR quickly and safely. Just link your BML or MIB card.</p>
               </div>
               <div className="w-full md:w-1/2 bg-slate-50 rounded-[32px] md:rounded-[40px] p-6 md:p-8 border border-slate-100 md:rotate-2 md:translate-x-10 md:translate-y-10 order-1 md:order-2">
                  <div className="space-y-4">
                     <div className="flex justify-between items-center text-[10px] font-black uppercase text-slate-400">
-                      <span>Transaction Node</span>
-                      <span className="text-emerald-500">Verified</span>
+                      <span>BML Settlement</span>
+                      <span className="text-emerald-500">Active</span>
                     </div>
                     <div className="h-2 w-full bg-brand/10 rounded-full overflow-hidden">
                        <div className="h-full w-3/4 bg-brand rounded-full animate-pulse"></div>
@@ -291,15 +291,15 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin })
               </div>
             </div>
 
-            {/* Feature 2 - e-Faas (Spans 4 columns and 2 rows height on desktop) */}
+            {/* Feature 2 - e-Faas */}
             <div className="md:col-span-4 md:row-span-2 bg-slate-900 text-white border border-slate-800 rounded-[40px] md:rounded-[56px] p-8 md:p-12 hover:shadow-2xl transition-all reveal stagger-child flex flex-col relative overflow-hidden group">
               <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-brand/20 blur-[100px] rounded-full group-hover:bg-brand/40 transition-all duration-700"></div>
               <div className="relative z-10 h-full flex flex-col">
                 <div className="w-14 h-14 md:w-16 md:h-16 bg-white/10 rounded-2xl md:rounded-3xl flex items-center justify-center mb-8 md:mb-10 border border-white/10">
                   <ShieldCheck className="w-7 h-7 md:w-8 md:h-8 text-brand" />
                 </div>
-                <h4 className="text-2xl md:text-3xl font-black mb-4 md:mb-6 tracking-tight">e-Faas Verified Node</h4>
-                <p className="text-slate-400 text-base md:text-lg leading-relaxed font-medium mb-8 md:mb-12">Every professional identity is cryptographically anchored to the national digital identity system. Zero bots. Zero scams.</p>
+                <h4 className="text-2xl md:text-3xl font-black mb-4 md:mb-6 tracking-tight">Vetted by e-Faas</h4>
+                <p className="text-slate-400 text-base md:text-lg leading-relaxed font-medium mb-8 md:mb-12">Every account is linked to e-Faas. This means you only work with real, verified people. No scammers, just real business.</p>
                 <div className="mt-auto pt-8 md:pt-10 border-t border-white/10">
                   <div className="flex items-center gap-4 p-4 bg-white/5 rounded-[24px] border border-white/10">
                     <div className="w-10 h-10 bg-brand/20 rounded-xl flex items-center justify-center">
@@ -314,22 +314,22 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin })
               </div>
             </div>
 
-            {/* Feature 3 - Escrow Protocol (Spans 4 columns on desktop) */}
+            {/* Feature 3 - Escrow Protocol */}
             <div className="md:col-span-4 bg-white border border-slate-100 rounded-[40px] md:rounded-[56px] p-8 md:p-12 hover:shadow-2xl transition-all reveal stagger-child">
               <div className="w-12 h-12 md:w-14 md:h-14 bg-emerald-500 rounded-2xl md:rounded-3xl flex items-center justify-center text-white mb-6 md:mb-8 shadow-xl shadow-emerald-500/20">
                 <Lock className="w-6 h-6 md:w-7 md:h-7" />
               </div>
-              <h4 className="text-xl md:text-2xl font-black mb-4 tracking-tight">Escrow Protocol</h4>
-              <p className="text-slate-500 text-sm md:text-base font-medium leading-relaxed">Funds are liberated only when the work is signed off. Absolute security for both sides of the transaction.</p>
+              <h4 className="text-xl md:text-2xl font-black mb-4 tracking-tight">Secure Escrow</h4>
+              <p className="text-slate-500 text-sm md:text-base font-medium leading-relaxed">Clients pay upfront into a safe account. Freelancers get paid once the job is approved. Simple and fair for everyone.</p>
             </div>
 
-            {/* Feature 4 - Strategic Filters (Spans 4 columns on desktop) */}
+            {/* Feature 4 - Strategic Filters */}
             <div className="md:col-span-4 bg-white border border-slate-100 rounded-[40px] md:rounded-[56px] p-8 md:p-12 hover:shadow-2xl transition-all reveal stagger-child">
               <div className="w-12 h-12 md:w-14 md:h-14 bg-yellow-500 rounded-2xl md:rounded-3xl flex items-center justify-center text-white mb-6 md:mb-8 shadow-xl shadow-yellow-500/20">
                 <Target className="w-6 h-6 md:w-7 md:h-7" />
               </div>
-              <h4 className="text-xl md:text-2xl font-black mb-4 tracking-tight">Strategic Filters</h4>
-              <p className="text-slate-500 text-sm md:text-base font-medium leading-relaxed">Find talent based on atoll proximity, local dialect proficiency, and specialized niche island expertise.</p>
+              <h4 className="text-xl md:text-2xl font-black mb-4 tracking-tight">Atoll Filters</h4>
+              <p className="text-slate-500 text-sm md:text-base font-medium leading-relaxed">Search for talent based on their atoll or island. Perfect for when you need someone on-site or close by.</p>
             </div>
 
           </div>
@@ -337,15 +337,15 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin })
       </section>
 
       {/* Network Horizontal Swiper */}
-      <section id="marketplace" className="py-32 md:py-48 bg-white overflow-hidden">
+      <section id="gigs" className="py-32 md:py-48 bg-white overflow-hidden">
         <div className="container mx-auto px-6 mb-16 md:mb-24 reveal">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-10">
              <div className="max-w-2xl">
-                <h3 className="text-4xl sm:text-5xl md:text-8xl font-black tracking-tighter leading-[1] md:leading-[0.85] mb-6 md:mb-8">Access the <br /> Professional Grid.</h3>
-                <p className="text-lg md:text-2xl text-slate-400 font-medium">The archipelago's highest density professional directory is live and searchable.</p>
+                <h3 className="text-4xl sm:text-5xl md:text-8xl font-black tracking-tighter leading-[1] md:leading-[0.85] mb-6 md:mb-8">Find the <br /> Best Gigs.</h3>
+                <p className="text-lg md:text-2xl text-slate-400 font-medium">The most active professional network in the Maldives is right here.</p>
              </div>
              <button onClick={onExplore} className="w-full md:w-auto px-10 md:px-14 py-5 md:py-6 bg-slate-900 text-white rounded-[24px] md:rounded-[32px] font-black text-[12px] md:text-[13px] uppercase tracking-widest shadow-2xl shadow-slate-900/20 hover:bg-brand transition-all flex items-center justify-center gap-4">
-                Enter Market <ExternalLink className="w-5 h-5" />
+                Explore Market <ExternalLink className="w-5 h-5" />
              </button>
           </div>
         </div>
@@ -354,11 +354,11 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin })
         <div className="px-6 md:px-0">
           <div className="flex md:grid md:grid-cols-3 gap-6 md:gap-8 overflow-x-auto no-scrollbar pb-10 -mx-6 px-6 md:mx-0 md:container md:mx-auto">
              {[
-               { cat: 'Software Development', count: '482 experts', icon: Cpu, color: 'bg-blue-500' },
-               { cat: 'Creative Branding', count: '290 designers', icon: Target, color: 'bg-brand' },
-               { cat: 'Strategic Marketing', count: '150 pros', icon: Globe, color: 'bg-emerald-500' },
-               { cat: 'Event Management', count: '98 leads', icon: Star, color: 'bg-yellow-500' },
-               { cat: 'Legal & Audit', count: '45 experts', icon: Shield, color: 'bg-slate-900' },
+               { cat: 'Software & Tech', count: '482 experts', icon: Cpu, color: 'bg-blue-500' },
+               { cat: 'Design & Creative', count: '290 designers', icon: Target, color: 'bg-brand' },
+               { cat: 'Digital Marketing', count: '150 pros', icon: Globe, color: 'bg-emerald-500' },
+               { cat: 'Events & Hosting', count: '98 leads', icon: Star, color: 'bg-yellow-500' },
+               { cat: 'Audit & Legal', count: '45 experts', icon: Shield, color: 'bg-slate-900' },
                { cat: 'Translation', count: '120 nodes', icon: MessageSquare, color: 'bg-indigo-600' }
              ].map((grid, i) => (
                <div key={i} className="min-w-[280px] md:min-w-0 group p-8 md:p-10 bg-slate-50 rounded-[40px] md:rounded-[48px] hover:bg-brand hover:translate-y-[-12px] transition-all duration-500 reveal stagger-child">
@@ -374,11 +374,11 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin })
       </section>
 
       {/* Pricing / Tiers */}
-      <section id="tiers" className="py-32 md:py-48 bg-slate-50">
+      <section id="pricing" className="py-32 md:py-48 bg-slate-50">
         <div className="container mx-auto px-6">
            <div className="max-w-4xl mx-auto text-center mb-16 md:mb-24 reveal">
-              <h2 className="text-[10px] md:text-[12px] font-black text-brand uppercase tracking-[0.6em] mb-6 md:mb-10">Tier Selection</h2>
-              <h3 className="text-4xl sm:text-5xl md:text-9xl font-black tracking-tighter mb-8 md:mb-12 leading-[1] md:leading-[0.85]">Economic <br className="hidden md:block" /> Velocity.</h3>
+              <h2 className="text-[10px] md:text-[12px] font-black text-brand uppercase tracking-[0.6em] mb-6 md:mb-10">Simple Pricing</h2>
+              <h3 className="text-4xl sm:text-5xl md:text-9xl font-black tracking-tighter mb-8 md:mb-12 leading-[1] md:leading-[0.85]">Flexible <br className="hidden md:block" /> Tiers.</h3>
               <div className="inline-flex items-center gap-2 p-1.5 bg-white rounded-[24px] md:rounded-[32px] shadow-sm">
                 <button onClick={() => setPricingType('freelancer')} className={`px-8 md:px-12 py-3 md:py-4 rounded-[20px] md:rounded-[26px] font-black text-[10px] md:text-[12px] uppercase tracking-widest transition-all ${pricingType === 'freelancer' ? 'bg-brand text-white shadow-2xl' : 'text-slate-400'}`}>Freelancer</button>
                 <button onClick={() => setPricingType('business')} className={`px-8 md:px-12 py-3 md:py-4 rounded-[20px] md:rounded-[26px] font-black text-[10px] md:text-[12px] uppercase tracking-widest transition-all ${pricingType === 'business' ? 'bg-brand text-white shadow-2xl' : 'text-slate-400'}`}>Business</button>
@@ -406,11 +406,11 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin })
                         <CheckCircle2 className="w-5 h-5 md:w-6 md:h-6 text-brand" /> <span>{plan.perk}</span>
                      </div>
                      <div className="flex items-center gap-3 text-[14px] md:text-[15px] font-bold text-slate-600">
-                        <CheckCircle2 className="w-5 h-5 md:w-6 md:h-6 text-brand" /> <span>Escrow Protected</span>
+                        <CheckCircle2 className="w-5 h-5 md:w-6 md:h-6 text-brand" /> <span>Secured by Escrow</span>
                      </div>
                   </div>
                   <button onClick={onJoin} className={`w-full py-5 md:py-6 rounded-[24px] md:rounded-[32px] font-black text-[12px] md:text-[14px] uppercase tracking-widest transition-all ${plan.featured ? 'bg-brand text-white shadow-2xl shadow-brand/30 hover:brightness-110' : 'bg-slate-50 text-slate-900 hover:border-brand hover:bg-white border border-slate-200'}`}>
-                     Get Started
+                     Sign Up Now
                   </button>
                </div>
              ))}
@@ -422,8 +422,8 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin })
       <section id="about" className="py-32 md:py-56 bg-white border-y border-slate-100">
         <div className="container mx-auto px-6 max-w-4xl">
            <div className="text-center mb-16 md:mb-24 reveal">
-              <h3 className="text-4xl sm:text-5xl md:text-8xl font-black tracking-tighter mb-6 md:mb-10 leading-[1] md:leading-[0.85]">Common Protocols.</h3>
-              <p className="text-slate-400 font-medium text-lg md:text-xl leading-relaxed">Technical insights for high-performance users of the Meritt workspace engine.</p>
+              <h3 className="text-4xl sm:text-5xl md:text-8xl font-black tracking-tighter mb-6 md:mb-10 leading-[1] md:leading-[0.85]">Common Questions.</h3>
+              <p className="text-slate-400 font-medium text-lg md:text-xl leading-relaxed">Everything you need to know about working on Meritt.</p>
            </div>
            <div className="space-y-4 md:space-y-6">
               {FAQ_ITEMS.map((item, i) => (
@@ -447,14 +447,14 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin })
       <section className="py-32 md:py-60 bg-brand relative overflow-hidden text-center">
         <div className="blob w-[1000px] h-[1000px] bg-white opacity-5 top-[-50%] left-[-50%] blur-[150px]"></div>
         <div className="container mx-auto px-6 relative z-10">
-          <h2 className="text-white/60 font-black text-[10px] md:text-[12px] uppercase tracking-[0.8em] mb-8 md:mb-12">Initialize Deployment</h2>
-          <h3 className="text-5xl md:text-[140px] font-black text-white leading-[1] md:leading-[0.8] tracking-tighter mb-16 md:mb-20">Ready to <br /> scale work?</h3>
+          <h2 className="text-white/60 font-black text-[10px] md:text-[12px] uppercase tracking-[0.8em] mb-8 md:mb-12">Start Your Journey</h2>
+          <h3 className="text-5xl md:text-[140px] font-black text-white leading-[1] md:leading-[0.8] tracking-tighter mb-16 md:mb-20">Ready for <br /> more gigs?</h3>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6">
             <button onClick={onJoin} className="w-full sm:w-auto px-12 md:px-16 py-6 md:py-8 bg-white text-brand rounded-[32px] md:rounded-[40px] font-black text-[16px] md:text-[18px] shadow-2xl hover:scale-105 active:scale-95 transition-all">
-              Initialize Account
+              Create My Account
             </button>
             <button onClick={onExplore} className="w-full sm:w-auto px-12 md:px-16 py-6 md:py-8 bg-transparent border-2 border-white/20 text-white rounded-[32px] md:rounded-[40px] font-black text-[16px] md:text-[18px] hover:bg-white/10 transition-all">
-              Browse Grid
+              Explore Gigs
             </button>
           </div>
         </div>
@@ -466,45 +466,45 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin })
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-16 md:gap-20 mb-24 md:mb-32">
             <div className="lg:col-span-2">
                <span className="brand-text text-4xl md:text-5xl text-brand block mb-8 md:mb-12">meritt.</span>
-               <p className="text-slate-400 font-medium text-lg md:text-xl leading-relaxed max-w-sm">Distributing professional excellence across the archipelago. Secure, sovereign, and domestic.</p>
+               <p className="text-slate-400 font-medium text-lg md:text-xl leading-relaxed max-w-sm">The leading professional engine for freelancers and businesses in the Maldives. Locally owned & operated.</p>
             </div>
             <div className="lg:col-span-4 grid grid-cols-2 md:grid-cols-3 gap-10 md:gap-12">
                <div>
-                  <h5 className="font-black text-[10px] md:text-[11px] uppercase tracking-[0.5em] text-slate-300 mb-8 md:mb-10">System</h5>
+                  <h5 className="font-black text-[10px] md:text-[11px] uppercase tracking-[0.5em] text-slate-300 mb-8 md:mb-10">Platform</h5>
                   <ul className="space-y-4 md:space-y-5 text-[14px] md:text-[15px] font-bold text-slate-600">
-                     <li><a href="#" className="hover:text-brand transition-colors">Protocol Grid</a></li>
-                     <li><a href="#" className="hover:text-brand transition-colors">Escrow Node</a></li>
-                     <li><a href="#" className="hover:text-brand transition-colors">Identity Hub</a></li>
+                     <li><a href="#" className="hover:text-brand transition-colors">Gig Board</a></li>
+                     <li><a href="#" className="hover:text-brand transition-colors">Talent Search</a></li>
+                     <li><a href="#" className="hover:text-brand transition-colors">Verification</a></li>
                   </ul>
                </div>
                <div>
-                  <h5 className="font-black text-[10px] md:text-[11px] uppercase tracking-[0.5em] text-slate-300 mb-8 md:mb-10">Network</h5>
+                  <h5 className="font-black text-[10px] md:text-[11px] uppercase tracking-[0.5em] text-slate-300 mb-8 md:mb-10">Company</h5>
                   <ul className="space-y-4 md:space-y-5 text-[14px] md:text-[15px] font-bold text-slate-600">
-                     <li><a href="#" className="hover:text-brand transition-colors">Expert Search</a></li>
-                     <li><a href="#" className="hover:text-brand transition-colors">Business Board</a></li>
+                     <li><a href="#" className="hover:text-brand transition-colors">About Us</a></li>
+                     <li><a href="#" className="hover:text-brand transition-colors">Our Impact</a></li>
                      <li><a href="#" className="hover:text-brand transition-colors">Case Studies</a></li>
                   </ul>
                </div>
                <div>
-                  <h5 className="font-black text-[10px] md:text-[11px] uppercase tracking-[0.5em] text-slate-300 mb-8 md:mb-10">Entity</h5>
+                  <h5 className="font-black text-[10px] md:text-[11px] uppercase tracking-[0.5em] text-slate-300 mb-8 md:mb-10">Legal</h5>
                   <ul className="space-y-4 md:space-y-5 text-[14px] md:text-[15px] font-bold text-slate-600">
-                     <li><a href="#" className="hover:text-brand transition-colors">Legal Board</a></li>
-                     <li><a href="#" className="hover:text-brand transition-colors">Status Node</a></li>
-                     <li><a href="#" className="hover:text-brand transition-colors">Terms</a></li>
+                     <li><a href="#" className="hover:text-brand transition-colors">Privacy Policy</a></li>
+                     <li><a href="#" className="hover:text-brand transition-colors">Terms of Service</a></li>
+                     <li><a href="#" className="hover:text-brand transition-colors">Contact</a></li>
                   </ul>
                </div>
             </div>
           </div>
           <div className="flex flex-col md:flex-row justify-between items-center gap-8 md:gap-10 pt-16 border-t border-slate-100">
-            <p className="text-[10px] md:text-[12px] font-black text-slate-300 uppercase tracking-widest text-center md:text-left leading-relaxed">© 2024 Meritt Maldives Pvt Ltd. Distributed Professional Engine v2.0.1</p>
+            <p className="text-[10px] md:text-[12px] font-black text-slate-300 uppercase tracking-widest text-center md:text-left leading-relaxed">© 2024 Meritt Maldives Pvt Ltd. Professional Engine v2.0.1</p>
             <div className="flex flex-wrap justify-center items-center gap-6 md:gap-10 text-[10px] md:text-[11px] font-black uppercase tracking-widest text-emerald-500">
                <span className="flex items-center gap-3">
                   <span className="w-2 h-2 md:w-2.5 md:h-2.5 bg-emerald-500 rounded-full animate-pulse shadow-lg shadow-emerald-500/40"></span>
-                  BML: Online
+                  BML: Live
                </span>
                <span className="flex items-center gap-3">
                   <span className="w-2 h-2 md:w-2.5 md:h-2.5 bg-emerald-500 rounded-full animate-pulse shadow-lg shadow-emerald-500/40"></span>
-                  e-Faas: Online
+                  e-Faas: Live
                </span>
             </div>
           </div>
