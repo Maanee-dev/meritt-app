@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Search, Bell, Sun, Moon, LogOut, User as UserIcon, Settings as SettingsIcon, ChevronDown } from 'lucide-react';
+import { Search, Bell, Sun, Moon, LogOut, User as UserIcon, Settings as SettingsIcon, ChevronDown, Fingerprint } from 'lucide-react';
 
 interface HeaderProps {
   onOpenCommandPalette: () => void;
@@ -74,13 +74,13 @@ const Header: React.FC<HeaderProps> = ({ onOpenCommandPalette, onLogout, darkMod
               <div className="p-5 border-b border-gray-100 dark:border-dark-border bg-[#F9FAFB] dark:bg-dark/20">
                 <p className="text-[14px] font-bold dark:text-white">Jauzaf Dhonbe</p>
                 <div className="flex items-center gap-1.5 mt-1">
-                  <span className="w-1.5 h-1.5 bg-brand rounded-full"></span>
-                  <p className="text-[10px] text-gray-400 font-black uppercase tracking-widest">Professional Tier</p>
+                  <Fingerprint className="w-3.5 h-3.5 text-brand" />
+                  <p className="text-[10px] text-brand font-black uppercase tracking-widest">Meritt ID Verified</p>
                 </div>
               </div>
               <div className="p-2">
                 <button className="w-full flex items-center gap-3 px-3 py-2.5 text-[12px] text-gray-600 dark:text-gray-300 hover:bg-slate-50 dark:hover:bg-dark rounded-xl transition-colors text-left font-bold group">
-                  <UserIcon className="w-4 h-4 group-hover:text-brand" /> Profile Overview
+                  <UserIcon className="w-4 h-4 group-hover:text-brand" /> Identity Vault
                 </button>
                 <button className="w-full flex items-center gap-3 px-3 py-2.5 text-[12px] text-gray-600 dark:text-gray-300 hover:bg-slate-50 dark:hover:bg-dark rounded-xl transition-colors text-left font-bold group">
                   <SettingsIcon className="w-4 h-4 group-hover:text-brand" /> Workspace Settings

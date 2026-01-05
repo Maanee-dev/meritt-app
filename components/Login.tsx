@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { User, Briefcase, Zap, ArrowLeft, Mail, Lock, UserCircle, Globe, Star, CheckCircle2, ChevronRight } from 'lucide-react';
+import { User, Briefcase, Zap, ArrowLeft, Mail, Lock, UserCircle, Globe, Star, CheckCircle2, ChevronRight, Fingerprint } from 'lucide-react';
 import { UserRole } from '../types';
 
 interface AuthProps {
@@ -59,6 +59,14 @@ const Auth: React.FC<AuthProps> = ({ onLogin, onBack }) => {
           </button>
         ))}
       </div>
+      <div className="p-5 mt-6 bg-brand/[0.03] border border-brand/10 rounded-2xl flex items-center gap-4">
+         <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-brand shadow-sm">
+            <Fingerprint className="w-6 h-6" />
+         </div>
+         <p className="text-[11px] text-slate-500 font-medium leading-tight">
+            Onboarding includes a <span className="text-brand font-bold">Meritt ID</span> check to ensure local professional integrity.
+         </p>
+      </div>
       <div className="text-center pt-4">
         <p className="text-slate-500 text-sm font-medium">
           Already have an account? <button onClick={() => setMode('login')} className="text-brand font-black hover:underline">Log in</button>
@@ -87,7 +95,7 @@ const Auth: React.FC<AuthProps> = ({ onLogin, onBack }) => {
         </div>
         <div className="pt-4">
           <button type="submit" disabled={isLoading} className="w-full py-4 bg-brand text-white rounded-2xl font-black text-[15px] shadow-xl shadow-brand/20 flex items-center justify-center gap-3">
-            {isLoading ? <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div> : <span>Initialize Workspace</span>}
+            {isLoading ? <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div> : <span>Initialize Meritt ID</span>}
           </button>
         </div>
       </form>
@@ -103,7 +111,7 @@ const Auth: React.FC<AuthProps> = ({ onLogin, onBack }) => {
       <form onSubmit={(e) => { e.preventDefault(); onLogin('freelancer'); }} className="space-y-4">
         <input className="w-full px-4 py-3 border border-[#E2E8F0] rounded-xl text-[14px] bg-[#F9FAFB] outline-none focus:border-brand" placeholder="Email" />
         <input type="password" className="w-full px-4 py-3 border border-[#E2E8F0] rounded-xl text-[14px] bg-[#F9FAFB] outline-none focus:border-brand" placeholder="Password" />
-        <button className="w-full py-4 bg-brand text-white rounded-2xl font-black text-[15px] shadow-xl shadow-brand/20">Enter Workspace</button>
+        <button className="w-full py-4 bg-brand text-white rounded-2xl font-black text-[15px] shadow-xl shadow-brand/20">Sync Meritt ID</button>
       </form>
       <div className="text-center pt-4">
         <p className="text-slate-500 text-sm font-medium">New? <button onClick={() => { setMode('signup'); setStep('choice'); }} className="text-brand font-black hover:underline">Join Now</button></p>
@@ -117,8 +125,9 @@ const Auth: React.FC<AuthProps> = ({ onLogin, onBack }) => {
         <div className="relative z-10 text-white max-w-sm">
           <span className="brand-text text-5xl text-white mb-8 block">meritt.</span>
           <h2 className="text-4xl font-extrabold mb-4 leading-tight">The Professional Hub of the Maldives.</h2>
-          <p className="text-white/70 text-lg leading-relaxed mb-10">Direct MVR Clearing & e-Faas Integrated Security.</p>
+          <p className="text-white/70 text-lg leading-relaxed mb-10">Direct MVR Clearing & Sovereign Meritt ID Security.</p>
         </div>
+        <div className="absolute top-[-100px] left-[-100px] w-96 h-96 bg-white/10 rounded-full blur-[100px]"></div>
       </div>
       <div className="flex-1 flex flex-col relative px-6 py-12 md:px-16 lg:px-24 justify-center max-w-4xl mx-auto md:mx-0">
         <div className="w-full max-w-md mx-auto">

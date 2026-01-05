@@ -13,6 +13,7 @@ import Auth from './components/Login';
 import BottomNav from './components/BottomNav';
 import LandingPage from './components/LandingPage';
 import { TabType, UserRole, User } from './types';
+import { Sun, Moon, Fingerprint } from 'lucide-react';
 
 type ViewState = 'landing' | 'public-marketplace' | 'login' | 'workspace';
 
@@ -81,19 +82,23 @@ const App: React.FC = () => {
     }
     if (view === 'public-marketplace') {
       return (
-        <div className="min-h-screen bg-white dark:bg-dark">
-          <header className="h-[64px] border-b border-[#E2E8F0] dark:border-dark-border bg-white dark:bg-dark flex items-center justify-between px-6">
+        <div className="min-h-screen bg-white dark:bg-dark transition-colors">
+          <header className="h-[64px] border-b border-[#E2E8F0] dark:border-dark-border bg-white dark:bg-dark flex items-center justify-between px-6 sticky top-0 z-50">
             <div className="flex items-center cursor-pointer" onClick={() => setView('landing')}>
               <span className="brand-text text-2xl text-brand">meritt.</span>
             </div>
-            <div className="flex gap-4">
+            <div className="flex gap-4 items-center">
+               <div className="hidden md:flex items-center gap-2 px-3 py-1.5 bg-brand/5 border border-brand/10 rounded-xl">
+                  <Fingerprint className="w-4 h-4 text-brand" />
+                  <span className="text-[10px] font-black text-brand uppercase tracking-widest">Meritt ID Node Active</span>
+               </div>
                <button 
                   onClick={() => setDarkMode(!darkMode)}
                   className="p-2 text-gray-400 hover:text-brand transition-all rounded-xl hover:bg-slate-50 dark:hover:bg-dark-surface"
                 >
                   {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
                </button>
-               <button onClick={() => setView('login')} className="text-gray-500 font-bold text-sm hover:text-brand transition-colors">Log In</button>
+               <button onClick={() => setView('login')} className="text-gray-500 dark:text-gray-400 font-bold text-sm hover:text-brand transition-colors">Log In</button>
                <button onClick={() => setView('login')} className="bg-brand text-white px-5 py-2 rounded-xl font-black text-xs uppercase tracking-widest shadow-lg shadow-brand/20">Join</button>
             </div>
           </header>
@@ -150,7 +155,5 @@ const App: React.FC = () => {
     </Router>
   );
 };
-
-import { Sun, Moon } from 'lucide-react';
 
 export default App;

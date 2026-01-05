@@ -6,7 +6,8 @@ import {
   MessageSquare, 
   Wallet, 
   Settings,
-  LogOut
+  LogOut,
+  Fingerprint
 } from 'lucide-react';
 import { TabType, UserRole } from '../types';
 
@@ -38,7 +39,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, role, userNa
       </div>
 
       <div className="px-8 py-2">
-        <span className="text-[9px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-[0.3em]">{role}</span>
+        <span className="text-[9px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-[0.3em]">{role} Node</span>
       </div>
 
       <nav className="flex-1 px-4 mt-6 space-y-1">
@@ -59,6 +60,12 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, role, userNa
       </nav>
 
       <div className="p-4 border-t border-[#E2E8F0] dark:border-dark-border">
+        <div className="mb-4 px-2">
+          <div className="flex items-center gap-2 px-3 py-2 bg-brand/5 dark:bg-brand/10 border border-brand/10 rounded-xl">
+            <Fingerprint className="w-3.5 h-3.5 text-brand" />
+            <span className="text-[9px] font-black text-brand uppercase tracking-widest">Meritt ID Sync</span>
+          </div>
+        </div>
         <div className="flex items-center justify-between gap-3 p-2 rounded-xl hover:bg-white dark:hover:bg-dark-surface group transition-all border border-transparent hover:border-[#E2E8F0]">
           <div className="flex items-center gap-3 min-w-0">
             <div className="w-8 h-8 rounded-full bg-brand flex items-center justify-center text-white font-black text-[10px] shadow-lg">
@@ -66,7 +73,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, role, userNa
             </div>
             <div className="flex flex-col min-w-0">
               <span className="font-bold text-[12px] truncate dark:text-white tracking-tight">{userName}</span>
-              <span className="text-[9px] text-gray-400 font-black uppercase tracking-tighter">{userPlan}</span>
+              <span className="text-[9px] text-gray-400 font-black uppercase tracking-tighter">{userPlan} Plan</span>
             </div>
           </div>
           <button onClick={onLogout} className="text-gray-300 hover:text-red-500 transition-colors">
