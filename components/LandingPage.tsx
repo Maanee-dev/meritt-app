@@ -4,18 +4,13 @@ import {
   ShieldCheck, 
   Zap, 
   Globe, 
-  Lock,
-  Trophy,
   Crown,
   Menu,
   X,
   Coffee,
   TrendingUp,
   Layers,
-  Star,
-  Quote,
-  Shield,
-  Activity,
+  Trophy,
   ArrowUpRight,
   Sun,
   Moon,
@@ -29,10 +24,17 @@ import {
   CheckCircle2,
   Briefcase,
   Users,
+  Shield,
+  Check,
   Sparkles,
-  MousePointer2,
+  Waves,
+  MapPin,
+  CreditCard,
   ChevronRight,
-  Info
+  MousePointer2,
+  MessageCircle,
+  BarChart3,
+  ShieldAlert
 } from 'lucide-react';
 
 interface LandingPageProps {
@@ -44,26 +46,37 @@ interface LandingPageProps {
 }
 
 const FAQ_ITEMS = [
-  { q: "Is the MVR Escrow actually safe?", a: "Yes, 100%. When you start a project, the money is held in a secure clearing account. We only release the payment once the client clicks 'Approve' or a verified milestone is achieved." },
-  { q: "What is Meritt ID?", a: "Meritt ID is our custom built-in verification system. It uses encrypted local verification to ensure every professional on the platform is a real, vetted individual in the Maldives. No more bots or fake profiles." },
-  { q: "How fast do I get my money in BML?", a: "Standard transfers take about 1-2 days. If you're on a Pro or Elite tier, we prioritize your clearing so you often get your MVR on the same day in your BML or MIB account." },
-  { q: "Can I use this for long-term resort work?", a: "Absolutely. Meritt handles everything from one-day creative gigs to multi-year resort rebranding and infrastructure projects. You can set up multiple milestones and track everything in your pipeline." }
+  { q: "Is the MVR Escrow safe for Maldivian banks?", a: "Absolutely. We've built Meritt to work specifically with BML and MIB clearing cycles. Your MVR is held in a secure protocol vault and released instantly upon milestone approval. No more waiting weeks for local bank transfers to clear." },
+  { q: "What is Meritt ID and why do I need it?", a: "Meritt ID is Raajje's first digital professional identity. It's a verified node that proves you are a real resident or registered business in the Maldives. This ensures accountability island-wide." },
+  { q: "How do the BML Payouts work?", a: "Once a milestone is 'Approved', funds are released. For Pro tiers, we utilize priority clearing, meaning MVR usually hits your account within hours, even on weekends." },
+  { q: "Can I use this for Resort-side projects?", a: "Yes. Many of our users are specialized in Resort branding, photography, and maintenance. Meritt supports long-term contracts with recurring milestones." }
 ];
 
 const CATEGORIES = [
-  { name: 'Software & Dev', thaana: 'ސޮފްޓްވެއަރ އެންޑް ޑިވެލޮޕްމަންޓް', icon: Code2, count: '142 Gigs', color: 'bg-blue-500' },
-  { name: 'Branding & Design', thaana: 'ބްރޭންޑިންގް އެންޑް ޑިޒައިން', icon: Palette, count: '210 Gigs', color: 'bg-purple-500' },
-  { name: 'Digital Strategy', thaana: 'ޑިޖިޓަލް ސްޓްރެޓެޖީ', icon: LineChart, count: '89 Gigs', color: 'bg-emerald-500' },
-  { name: 'Photography & Film', thaana: 'ފޮޓޯގްރަފީ އެންޑް ފިލްމް', icon: Camera, count: '64 Gigs', color: 'bg-rose-500' },
-  { name: 'Translation & Copy', thaana: 'ތަރުޖަމާ އަދި ލިޔުންތެރިކަން', icon: Languages, count: '102 Gigs', color: 'bg-amber-500' },
-  { name: 'Resort Operations', thaana: 'ރިސޯޓް އޮޕަރޭޝަންސް', icon: Anchor, count: '45 Gigs', color: 'bg-cyan-500' },
+  { name: 'Software & Dev', thaana: 'ސޮފްޓްވެއަރ', icon: Code2, count: '142', color: 'bg-blue-600' },
+  { name: 'Branding & Design', thaana: 'ޑިޒައިން', icon: Palette, count: '210', color: 'bg-indigo-600' },
+  { name: 'Digital Strategy', thaana: 'ސްޓްރެޓެޖީ', icon: LineChart, count: '89', color: 'bg-emerald-600' },
+  { name: 'Photography & Film', thaana: 'ފޮޓޯގްރަފީ', icon: Camera, count: '64', color: 'bg-rose-600' },
+  { name: 'Translation', thaana: 'ތަރުޖަމާ', icon: Languages, count: '102', color: 'bg-amber-600' },
+  { name: 'Resort Services', thaana: 'ރިސޯޓް', icon: Anchor, count: '45', color: 'bg-cyan-600' },
 ];
 
 const STATS = [
-  { label: 'Active Talent', value: '1,200+', icon: Users },
-  { label: 'Completed Projects', value: '4,500+', icon: CheckCircle2 },
-  { label: 'MVR Disbursed', value: '18M+', icon: ShieldCheck },
-  { label: 'Verified Firms', value: '350+', icon: Briefcase },
+  { label: 'Island Talent', value: '1.2K+', icon: Users },
+  { label: 'Projects', value: '4.5K+', icon: CheckCircle2 },
+  { label: 'MVR Cleared', value: '18M+', icon: ShieldCheck },
+  { label: 'Local Firms', value: '350+', icon: Briefcase },
+];
+
+const PROCESS_STEPS = [
+  { title: "Sync Identity", desc: "Initialize your Meritt ID node with local island verification.", icon: Fingerprint },
+  { title: "Capture Gig", desc: "Discover high-density professional opportunities in the Maldives.", icon: MousePointer2 },
+  { title: "Escrow Locked", desc: "Client locks MVR in the sovereign protocol before you start.", icon: ShieldCheck },
+  { title: "Node Clear", desc: "Funds hit your BML/MIB account via priority clearing cycles.", icon: Zap }
+];
+
+const PARTNERS = [
+  "Oceanic Retail", "Island Tech", "BML Authorized", "MIB Sync", "Male' Atoll Node", "Addu City Tech", "Hulhumale' Creative"
 ];
 
 const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin, darkMode, setDarkMode }) => {
@@ -74,7 +87,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin, d
   const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set());
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
+    const handleScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener('scroll', handleScroll);
 
     const observer = new IntersectionObserver(
@@ -85,7 +98,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin, d
           }
         });
       },
-      { threshold: 0.1 }
+      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
     );
 
     document.querySelectorAll('section[id]').forEach((section) => observer.observe(section));
@@ -97,227 +110,203 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin, d
   }, []);
 
   const currentPlans = pricingType === 'freelancer' ? [
-    { name: 'Ithibaaru', thaana: 'އިތިބާރު', price: 'MVR 0', fee: '12%', icon: Coffee, desc: 'Casual Gigs' },
-    { name: 'Muraaja', thaana: 'މުރާޖާ', price: 'MVR 49', fee: '7%', icon: Zap, desc: 'Pro Freelancer', featured: true },
-    { name: 'Kamiyaabu', thaana: 'ކާމިޔާބު', price: 'MVR 99', fee: '3%', icon: Crown, desc: 'Elite Talent' }
+    { name: 'Ithibaaru', price: '0', fee: '12%', icon: Coffee, desc: 'Side-gigs', perks: ['Public Marketplace', 'BML Payouts', 'Meritt ID Basic'] },
+    { name: 'Muraaja', price: '49', fee: '7%', icon: Zap, desc: 'Pro Hub', featured: true, perks: ['Priority Clearing', 'Verified Badge', 'Custom Pipelines', '24/7 Support'] },
+    { name: 'Kamiyaabu', price: '99', fee: '3%', icon: Crown, desc: 'Elite Network', perks: ['Direct MIB Sync', '0.5% Cashback', 'Portfolio Concierge'] }
   ] : [
-    { name: 'Maqaamu', thaana: 'މަޤާމު', price: 'MVR 0', fee: '1 Gig', icon: Layers, desc: 'Small Business' },
-    { name: 'Ithigaadh', thaana: 'އިއުތިޤާދު', price: 'MVR 99', fee: 'Unlimited', icon: TrendingUp, desc: 'Growing Firms', featured: true },
-    { name: 'Sulthaan', thaana: 'ސުލްޠާން', price: 'MVR 299', fee: 'Priority', icon: Trophy, desc: 'Enterprise' }
+    { name: 'Maqaamu', price: '0', fee: '1 Post', icon: Layers, desc: 'Solo Ventures', perks: ['1 Active Listing', 'Basic Screening', 'Unified Dashboard'] },
+    { name: 'Ithigaadh', price: '99', fee: 'Unlimited', icon: TrendingUp, desc: 'Agencies', featured: true, perks: ['Unlimited Posts', 'Talent Search', 'BML Business Sync', 'Advanced Analytics'] },
+    { name: 'Sulthaan', price: '299', fee: 'Concierge', icon: Trophy, desc: 'Enterprise', perks: ['Managed Recruitment', 'Priority Clearing', 'Custom Contracts'] }
   ];
 
   return (
-    <div className="landing-root bg-[#FDFDFF] dark:bg-dark overflow-x-hidden min-h-screen text-slate-900 dark:text-slate-100 transition-colors duration-500 selection:bg-brand selection:text-white">
+    <div className="landing-root bg-white dark:bg-dark overflow-x-hidden min-h-screen text-slate-900 dark:text-slate-100 transition-colors duration-500 selection:bg-brand selection:text-white">
       <style>{`
-        @keyframes float {
-          0%, 100% { transform: translateY(0px) rotate(0deg); }
-          50% { transform: translateY(-15px) rotate(3deg); }
-        }
-        @keyframes scan {
-          0% { top: 0%; opacity: 0; }
-          10% { opacity: 1; }
-          90% { opacity: 1; }
-          100% { top: 100%; opacity: 0; }
-        }
         @keyframes marquee {
           0% { transform: translateX(0); }
           100% { transform: translateX(-50%); }
         }
-        @keyframes shimmer {
-          0% { background-position: -200% 0; }
-          100% { background-position: 200% 0; }
-        }
-        .animate-float { animation: float 6s ease-in-out infinite; }
-        .animate-shimmer {
-          background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0) 100%);
-          background-size: 200% 100%;
-          animation: shimmer 3s infinite;
-        }
-        .reveal { opacity: 0; transform: translateY(30px); transition: all 1s cubic-bezier(0.2, 0.8, 0.2, 1); }
-        .revealed .reveal { opacity: 1; transform: translateY(0); }
-        .thaana-text { direction: rtl; font-family: 'Inter', sans-serif; }
-        .mobile-slider { 
-          display: flex; 
-          overflow-x: auto; 
-          scroll-snap-type: x mandatory; 
-          gap: 1.25rem; 
-          padding: 1rem;
-          scrollbar-width: none;
-          -ms-overflow-style: none;
-        }
-        .mobile-slider::-webkit-scrollbar { display: none; }
-        .mobile-slider > * { flex: 0 0 85%; scroll-snap-align: center; }
-        
-        .glass-card {
-          background: rgba(255, 255, 255, 0.8);
-          backdrop-filter: blur(12px);
-          border: 1px solid rgba(226, 232, 240, 0.5);
-          transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .dark .glass-card {
-          background: rgba(24, 24, 27, 0.8);
-          border-color: rgba(39, 39, 42, 0.5);
-        }
-        .scanner-line { 
-          position: absolute; left: 0; width: 100%; height: 2px; 
-          background: linear-gradient(90deg, transparent, #0047FF, transparent); 
-          box-shadow: 0 0 15px #0047FF; 
-          animation: scan 4s linear infinite; 
-        }
-        .activity-marquee {
+        .animate-marquee {
           display: flex;
           animation: marquee 40s linear infinite;
           width: max-content;
         }
+        .reveal { 
+          opacity: 0; 
+          transform: translateY(30px); 
+          transition: all 0.8s cubic-bezier(0.2, 1, 0.3, 1); 
+        }
+        .revealed .reveal { 
+          opacity: 1; 
+          transform: translateY(0); 
+        }
+        .thaana-font { direction: rtl; }
+        
+        .attio-card {
+          background: rgba(255, 255, 255, 0.8);
+          backdrop-filter: blur(12px);
+          border: 1px solid rgba(0, 0, 0, 0.05);
+          transition: all 0.4s cubic-bezier(0.2, 0, 0, 1);
+        }
+        .dark .attio-card {
+          background: rgba(24, 24, 27, 0.6);
+          border-color: rgba(255, 255, 255, 0.05);
+        }
+        .attio-card:hover {
+          border-color: #0047FF;
+          transform: translateY(-2px);
+          box-shadow: 0 12px 30px -10px rgba(0, 71, 255, 0.1);
+        }
+        
+        .hero-grid {
+          background-image: radial-gradient(circle at 1px 1px, rgba(0, 71, 255, 0.1) 1px, transparent 0);
+          background-size: 40px 40px;
+        }
+        .dark .hero-grid {
+          background-image: radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.03) 1px, transparent 0);
+        }
+        
+        .noise-overlay {
+          position: fixed;
+          top: 0; left: 0; width: 100%; height: 100%;
+          background-image: url('https://grainy-gradients.vercel.app/noise.svg');
+          opacity: 0.03;
+          pointer-events: none;
+          z-index: 9999;
+        }
+
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
       `}</style>
 
+      <div className="noise-overlay" />
+
       {/* Navigation */}
-      <header className={`fixed top-0 inset-x-0 h-[72px] md:h-[90px] z-[100] transition-all duration-500 ${scrolled ? 'bg-white/80 dark:bg-dark/80 backdrop-blur-2xl border-b border-slate-100 dark:border-dark-border shadow-sm' : 'bg-transparent'}`}>
-        <div className="container mx-auto px-6 h-full flex justify-between items-center">
-          <div className="flex items-center cursor-pointer group" onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}>
-            <span className="brand-text text-2xl md:text-3xl text-brand transition-all group-hover:tracking-widest">meritt.</span>
+      <nav className={`fixed top-0 inset-x-0 z-[100] transition-all duration-500 px-6 py-4 md:px-12 ${scrolled ? 'md:py-4' : 'md:py-8'}`}>
+        <div className={`max-w-[1440px] mx-auto flex justify-between items-center px-4 md:px-8 h-16 rounded-full border transition-all duration-500 ${scrolled ? 'bg-white/80 dark:bg-dark-surface/80 backdrop-blur-xl border-slate-200 dark:border-dark-border shadow-lg' : 'bg-transparent border-transparent'}`}>
+          <div className="flex items-center gap-12">
+            <span className="brand-text text-xl md:text-2xl text-brand cursor-pointer" onClick={() => window.scrollTo({top:0, behavior:'smooth'})}>meritt.</span>
+            <div className="hidden lg:flex items-center gap-8">
+              {['Gigs', 'Features', 'Pricing', 'FAQ'].map(item => (
+                <a key={item} href={`#${item.toLowerCase()}`} className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-brand transition-colors">{item}</a>
+              ))}
+            </div>
           </div>
 
-          <nav className="hidden lg:flex items-center gap-10">
-            {['Gigs', 'Features', 'Pricing', 'About'].map((item) => (
-              <a key={item} href={`#${item.toLowerCase()}`} className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 hover:text-brand transition-colors">
-                {item}
-              </a>
-            ))}
-          </nav>
-
-          <div className="hidden lg:flex items-center gap-6">
-            <button onClick={() => setDarkMode(!darkMode)} className="p-2.5 text-slate-400 hover:text-brand transition-all rounded-2xl hover:bg-slate-50 dark:hover:bg-dark-surface">
-              {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+          <div className="flex items-center gap-4">
+            <button onClick={() => setDarkMode(!darkMode)} className="p-2 text-slate-400 hover:text-brand transition-all">
+              {darkMode ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
             </button>
-            <button onClick={onLogin} className="text-[12px] font-bold text-slate-500 dark:text-slate-400 hover:text-brand transition-colors">Login</button>
-            <button onClick={onJoin} className="bg-brand text-white px-10 py-4 rounded-2xl text-[11px] font-black uppercase tracking-[0.2em] shadow-2xl shadow-brand/30 hover:scale-105 active:scale-95 transition-all overflow-hidden relative group">
-              <span className="relative z-10">Join Meritt</span>
-              <div className="absolute inset-0 animate-shimmer opacity-0 group-hover:opacity-100 transition-opacity"></div>
-            </button>
-          </div>
-
-          <div className="lg:hidden flex items-center gap-3">
-             <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="p-3 rounded-2xl border border-slate-100 dark:border-dark-border dark:text-white">
-              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            <div className="hidden sm:flex items-center gap-6 border-l border-slate-100 dark:border-dark-border pl-6">
+              <button onClick={onLogin} className="text-[11px] font-bold text-slate-500 hover:text-brand transition-colors uppercase tracking-widest">Login</button>
+              <button onClick={onJoin} className="bg-brand text-white px-6 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest shadow-xl shadow-brand/20 hover:scale-105 active:scale-95 transition-all">Sync Node</button>
+            </div>
+            <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="lg:hidden p-2 text-slate-500">
+              {isMobileMenuOpen ? <X /> : <Menu />}
             </button>
           </div>
         </div>
-      </header>
+      </nav>
+
+      {/* Mobile Menu Overlay */}
+      {isMobileMenuOpen && (
+        <div className="fixed inset-0 z-[110] bg-white dark:bg-dark p-8 flex flex-col justify-center animate-in fade-in duration-300">
+           <button onClick={() => setIsMobileMenuOpen(false)} className="absolute top-8 right-8 p-3 bg-slate-100 dark:bg-dark-surface rounded-full"><X /></button>
+           <div className="flex flex-col gap-6">
+             {['Gigs', 'Features', 'Pricing', 'FAQ'].map(item => (
+               <a key={item} href={`#${item.toLowerCase()}`} onClick={() => setIsMobileMenuOpen(false)} className="text-4xl font-black tracking-tighter hover:text-brand">{item}</a>
+             ))}
+             <div className="h-px bg-slate-100 dark:bg-dark-border my-4"></div>
+             <button onClick={onJoin} className="w-full bg-brand text-white py-4 rounded-2xl font-black uppercase tracking-widest">Get Synced</button>
+           </div>
+        </div>
+      )}
 
       {/* Hero Section */}
-      <section id="hero" className="relative pt-32 pb-16 md:pt-64 md:pb-40 overflow-hidden">
-        <div className="container mx-auto px-6 relative z-10 text-center">
-          <div className="inline-flex items-center gap-3 px-5 py-2.5 bg-brand/5 dark:bg-brand/10 border border-brand/10 rounded-full mb-8 animate-float shadow-sm">
-            <Fingerprint className="w-4 h-4 text-brand" />
-            <span className="text-[9px] md:text-[10px] font-black text-brand uppercase tracking-[0.3em]">Verified Local Infrastructure</span>
+      <section id="hero" className="relative pt-40 md:pt-60 pb-20 md:pb-40 hero-grid overflow-hidden">
+        <div className="max-w-[1440px] mx-auto px-6 text-center relative z-10">
+          <div className="inline-flex items-center gap-3 px-4 py-1.5 bg-brand/5 border border-brand/10 rounded-full mb-8 animate-in fade-in slide-in-from-top-4 duration-1000">
+            <div className="w-1.5 h-1.5 bg-brand rounded-full animate-pulse"></div>
+            <span className="text-[10px] font-black text-brand uppercase tracking-[0.3em]">Meritt Sovereign Node v2.0</span>
           </div>
-          <h1 className="text-4xl md:text-9xl font-black tracking-tighter mb-8 max-w-6xl mx-auto leading-[0.9] text-slate-900 dark:text-white">
-            THE HUB FOR <br className="hidden md:block"/> <span className="text-brand">ISLAND TALENT.</span>
+          <h1 className="text-6xl md:text-[9rem] font-black tracking-tighter leading-[0.85] mb-10 text-slate-900 dark:text-white animate-in zoom-in-95 duration-1000">
+            LOCAL CORE.<br/>
+            <span className="text-brand">ISLAND SCALE.</span>
           </h1>
-          <p className="text-base md:text-2xl text-slate-500 dark:text-slate-400 font-medium max-w-2xl mx-auto mb-12 leading-relaxed">
-            Direct MVR Payouts. Escrow Security. Vetted Local Talent. <br className="hidden md:block"/>
-            The professional operating system built for the Maldives.
+          <p className="max-w-2xl mx-auto text-lg md:text-xl text-slate-500 dark:text-slate-400 font-medium mb-12 leading-relaxed animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-200">
+            The Maldives' first high-density professional workspace. <br className="hidden md:block"/>
+            Unified MVR clearing, sovereign identities, and island-wide gigs.
           </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <button onClick={onJoin} className="w-full sm:w-auto bg-brand text-white px-12 py-5 rounded-3xl font-black text-xs uppercase tracking-[0.2em] shadow-2xl shadow-brand/30 hover:scale-105 transition-all flex items-center justify-center gap-3">
-              Join Workspace <ArrowRight className="w-5 h-5" />
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-in fade-in slide-in-from-bottom-8 duration-1000 delay-400">
+            <button onClick={onJoin} className="w-full sm:w-auto bg-brand text-white px-10 py-5 rounded-full font-black text-xs uppercase tracking-[0.2em] shadow-2xl shadow-brand/30 hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-3">
+              Sync Workspace <ArrowRight className="w-4 h-4" />
             </button>
-            <button onClick={onExplore} className="w-full sm:w-auto bg-white dark:bg-dark-surface border border-slate-200 dark:border-dark-border px-12 py-5 rounded-3xl font-black text-xs uppercase tracking-[0.2em] hover:shadow-xl transition-all dark:text-white">
-              Browse Marketplace
+            <button onClick={onExplore} className="w-full sm:w-auto bg-white dark:bg-dark-surface border border-slate-200 dark:border-dark-border px-10 py-5 rounded-full font-black text-xs uppercase tracking-[0.2em] hover:border-brand/40 transition-all">
+              Explore Market
             </button>
-          </div>
-        </div>
-
-        {/* Live Activity Marquee */}
-        <div className="mt-20 md:mt-32 border-y border-slate-100 dark:border-dark-border py-4 bg-white/50 dark:bg-dark/50 backdrop-blur-md overflow-hidden">
-          <div className="activity-marquee">
-            {[...Array(2)].map((_, i) => (
-              <div key={i} className="flex items-center gap-12 px-6">
-                {[
-                  "New Gig: Logo Design for @ResortLink",
-                  "Verified: Product Manager #1042",
-                  "Payout Cleared: MVR 4,500 to BML",
-                  "Milestone Met: 'Alpha Testing' - Oceanic Retail",
-                  "New Talent: Senior Architect from Addu City",
-                  "Escrow Locked: MVR 12,000 for 'Brand Audit'"
-                ].map((text, idx) => (
-                  <div key={idx} className="flex items-center gap-3 whitespace-nowrap">
-                    <div className="w-1.5 h-1.5 bg-brand rounded-full"></div>
-                    <span className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">{text}</span>
-                  </div>
-                ))}
-              </div>
-            ))}
           </div>
         </div>
         
-        {/* Decorative elements */}
-        <div className="absolute top-20 -left-20 w-[600px] h-[600px] bg-brand/10 blur-[120px] rounded-full opacity-50 animate-float" style={{animationDelay: '-2s'}}></div>
-        <div className="absolute bottom-0 -right-20 w-[400px] h-[400px] bg-blue-400/10 blur-[100px] rounded-full opacity-50 animate-float"></div>
+        {/* Floating elements */}
+        <div className="absolute top-20 -left-20 w-64 h-64 bg-brand/5 rounded-full blur-[100px] animate-pulse"></div>
+        <div className="absolute bottom-20 -right-20 w-96 h-96 bg-indigo-500/5 rounded-full blur-[120px] animate-pulse" style={{animationDelay: '1s'}}></div>
       </section>
 
-      {/* Stats Section */}
-      <section id="stats" className={`py-20 bg-slate-50/50 dark:bg-dark-surface/30 transition-all duration-1000 ${visibleSections.has('stats') ? 'revealed' : ''}`}>
-        <div className="container mx-auto px-6">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
-            {STATS.map((stat, i) => (
-              <div key={i} className="reveal flex flex-col items-center text-center group" style={{transitionDelay: `${i * 100}ms`}}>
-                <div className="w-14 h-14 bg-brand/5 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                  <stat.icon className="w-6 h-6 text-brand" />
-                </div>
-                <h3 className="text-3xl md:text-4xl font-black tracking-tight dark:text-white mb-2">{stat.value}</h3>
-                <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">{stat.label}</p>
+      {/* Partner Marquee */}
+      <div className="border-y border-slate-100 dark:border-dark-border py-8 overflow-hidden bg-slate-50/30 dark:bg-dark-surface/10">
+        <div className="animate-marquee">
+          {[...PARTNERS, ...PARTNERS].map((partner, i) => (
+            <div key={i} className="flex items-center gap-4 px-12 opacity-30 dark:opacity-20 grayscale hover:grayscale-0 hover:opacity-100 transition-all cursor-default">
+              <Sparkles className="w-4 h-4 text-brand" />
+              <span className="text-[11px] font-black uppercase tracking-[0.4em] whitespace-nowrap">{partner}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Stats Ribbon */}
+      <section id="stats" className={`py-12 md:py-20 transition-all duration-1000 ${visibleSections.has('stats') ? 'revealed' : ''}`}>
+        <div className="max-w-[1440px] mx-auto px-6 grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-16">
+          {STATS.map((stat, i) => (
+            <div key={i} className="reveal flex flex-col items-center text-center group" style={{transitionDelay: `${i * 100}ms`}}>
+              <div className="w-12 h-12 bg-brand/5 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                 <stat.icon className="w-6 h-6 text-brand" />
               </div>
-            ))}
-          </div>
+              <h3 className="text-3xl md:text-5xl font-black tracking-tighter dark:text-white mb-2 tabular-nums">{stat.value}</h3>
+              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{stat.label}</p>
+            </div>
+          ))}
         </div>
       </section>
 
-      {/* Gigs/Categories Section */}
-      <section id="gigs" className={`py-24 md:py-32 transition-all duration-1000 ${visibleSections.has('gigs') ? 'revealed' : ''}`}>
-        <div className="container mx-auto px-6">
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
-            <div className="max-w-2xl reveal">
-              <h2 className="text-[11px] font-black text-brand uppercase tracking-[0.5em] mb-4">Local Marketplace</h2>
-              <h3 className="text-4xl md:text-6xl font-black tracking-tighter leading-tight">EXPLORE LOCAL <span className="text-brand">CRAFT.</span></h3>
+      {/* Categories Horizontal Slider on Mobile */}
+      <section id="gigs" className={`py-24 md:py-40 transition-all duration-1000 ${visibleSections.has('gigs') ? 'revealed' : ''}`}>
+        <div className="max-w-[1440px] mx-auto px-6">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16 reveal">
+            <div className="max-w-2xl">
+              <h2 className="text-[11px] font-black text-brand uppercase tracking-[0.5em] mb-4">Gigs & Domains</h2>
+              <h3 className="text-4xl md:text-7xl font-black tracking-tight leading-none uppercase">Born in the <br/><span className="text-brand">Islands.</span></h3>
             </div>
-            <button onClick={onExplore} className="reveal text-[11px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-brand transition-all flex items-center gap-3">
-              See all categories <ArrowUpRight className="w-5 h-5" />
+            <button onClick={onExplore} className="flex items-center gap-2 text-[11px] font-black uppercase tracking-widest text-slate-400 hover:text-brand transition-all">
+              View All Nodes <ArrowUpRight className="w-4 h-4" />
             </button>
           </div>
 
-          {/* Desktop Grid */}
-          <div className="hidden md:grid grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 overflow-x-auto md:overflow-visible no-scrollbar pb-10 md:pb-0 -mx-6 px-6 snap-x snap-mandatory">
             {CATEGORIES.map((cat, i) => (
-              <div key={i} className="reveal glass-card p-10 rounded-[48px] hover:border-brand cursor-pointer group" style={{transitionDelay: `${i * 100}ms`}}>
-                <div className={`w-16 h-16 ${cat.color} rounded-3xl flex items-center justify-center mb-8 shadow-lg shadow-black/5 group-hover:scale-110 transition-transform`}>
-                  <cat.icon className="w-8 h-8 text-white" />
+              <div key={i} className="reveal attio-card p-10 rounded-[32px] group min-w-[300px] md:min-w-0 snap-center" style={{transitionDelay: `${i * 100}ms`}}>
+                <div className="flex justify-between items-start mb-12">
+                  <div className={`w-14 h-14 ${cat.color} rounded-2xl flex items-center justify-center text-white shadow-xl group-hover:scale-110 transition-transform`}>
+                    <cat.icon className="w-7 h-7" />
+                  </div>
+                  <span className="text-[10px] font-black text-slate-300 dark:text-slate-600 uppercase tracking-widest">{cat.count} Active</span>
                 </div>
-                <div className="flex items-center justify-between mb-3">
-                  <h4 className="text-2xl font-black dark:text-white tracking-tight">{cat.name}</h4>
-                  <span className="text-[11px] font-black text-slate-300 dark:text-slate-600 uppercase tracking-widest">{cat.count}</span>
+                <div className="mb-8">
+                   <h4 className="text-2xl font-black mb-1 dark:text-white">{cat.name}</h4>
+                   <p className="thaana-font text-xl font-bold text-slate-400 opacity-60">{cat.thaana}</p>
                 </div>
-                <p className="thaana-text text-2xl font-bold text-slate-400 dark:text-slate-500 mb-8">{cat.thaana}</p>
-                <div className="flex items-center gap-3 text-[11px] font-black uppercase tracking-widest text-brand opacity-0 group-hover:opacity-100 transition-all">
-                  Browse category <ArrowRight className="w-4 h-4" />
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Mobile Slider */}
-          <div className="md:hidden mobile-slider">
-            {CATEGORIES.map((cat, i) => (
-              <div key={i} className="glass-card p-8 rounded-[40px] shadow-sm">
-                <div className={`w-14 h-14 ${cat.color} rounded-2xl flex items-center justify-center mb-6`}>
-                  <cat.icon className="w-7 h-7 text-white" />
-                </div>
-                <h4 className="text-xl font-black dark:text-white mb-1">{cat.name}</h4>
-                <p className="thaana-text text-xl font-bold text-slate-400 mb-6">{cat.thaana}</p>
-                <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{cat.count}</span>
-                  <ArrowRight className="w-4 h-4 text-brand" />
+                <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-brand opacity-0 group-hover:opacity-100 translate-x-[-10px] group-hover:translate-x-0 transition-all">
+                   Sync Category <ChevronRight className="w-3 h-3" />
                 </div>
               </div>
             ))}
@@ -325,104 +314,144 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin, d
         </div>
       </section>
 
-      {/* Features - ONLY Bento Box here */}
-      <section id="features" className={`py-32 bg-slate-900 dark:bg-dark-surface rounded-[60px] mx-4 md:mx-8 transition-all duration-1000 ${visibleSections.has('features') ? 'revealed' : ''}`}>
-        <div className="container mx-auto px-6">
+      {/* How it Works / Process Section */}
+      <section id="process" className={`py-24 md:py-40 bg-slate-50 dark:bg-dark-surface/20 transition-all duration-1000 ${visibleSections.has('process') ? 'revealed' : ''}`}>
+        <div className="max-w-[1440px] mx-auto px-6">
           <div className="text-center mb-24 reveal">
-            <h3 className="text-[11px] font-black text-brand uppercase tracking-[0.5em] mb-6">Our Protocol Infrastructure</h3>
-            <h2 className="text-4xl md:text-7xl font-black text-white tracking-tight">VETTED & SECURE.</h2>
+            <h2 className="text-[11px] font-black text-brand uppercase tracking-[0.5em] mb-6">The Meritt Protocol</h2>
+            <h3 className="text-4xl md:text-7xl font-black tracking-tight leading-none uppercase">Synced in <br/><span className="text-brand">4 Steps.</span></h3>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            {PROCESS_STEPS.map((step, i) => (
+              <div key={i} className="reveal relative flex flex-col items-center text-center p-8 bg-white dark:bg-dark border border-slate-100 dark:border-dark-border rounded-[32px] hover:border-brand/40 transition-all group" style={{transitionDelay: `${i * 150}ms`}}>
+                <div className="w-16 h-16 bg-brand/5 rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
+                   <step.icon className="w-7 h-7 text-brand" />
+                </div>
+                <h4 className="text-xl font-black mb-3 dark:text-white">{step.title}</h4>
+                <p className="text-[13px] text-slate-500 font-medium leading-relaxed">{step.desc}</p>
+                {i < PROCESS_STEPS.length - 1 && (
+                  <div className="hidden lg:block absolute top-1/2 -right-4 -translate-y-1/2 z-10">
+                    <ArrowRight className="w-6 h-6 text-slate-200" />
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Features Showcase */}
+      <section id="features" className={`py-24 md:py-40 bg-slate-900 dark:bg-black rounded-[48px] md:rounded-[80px] mx-4 md:mx-10 overflow-hidden relative transition-all duration-1000 ${visibleSections.has('features') ? 'revealed' : ''}`}>
+        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_0%,rgba(0,71,255,0.15),transparent)]"></div>
+        <div className="max-w-[1440px] mx-auto px-10 relative z-10">
+          <div className="text-center mb-20 md:mb-32 reveal">
+            <h2 className="text-[11px] font-black text-brand uppercase tracking-[0.6em] mb-6">Protocol Integrity</h2>
+            <h3 className="text-5xl md:text-9xl font-black text-white tracking-tighter leading-none uppercase">Vetted. <br/>Cored. <br/>Secured.</h3>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
-            {/* Main Feature - Bento Large */}
-            <div className="md:col-span-8 bg-white/5 p-12 rounded-[48px] border border-white/10 reveal group overflow-hidden relative" style={{transitionDelay: '100ms'}}>
-              <div className="relative z-10">
-                <div className="w-20 h-20 bg-brand/10 rounded-3xl flex items-center justify-center mb-10 relative overflow-hidden">
-                  <div className="scanner-line"></div>
-                  <Fingerprint className="w-10 h-10 text-brand" />
-                </div>
-                <h4 className="text-4xl font-black text-white tracking-tight mb-6">Sovereign identity via Meritt ID</h4>
-                <p className="text-slate-400 text-lg leading-relaxed font-medium mb-10 max-w-xl">
-                  Meritt ID is your cryptographically secured digital passport. It ensures that every professional history, rating, and wallet is tied to a real person.
-                </p>
-                <div className="flex flex-wrap gap-4">
-                  {['Encrypted Vault', 'Local Verification', 'Reputation Score'].map(tag => (
-                    <span key={tag} className="px-6 py-2.5 bg-white/5 border border-white/10 rounded-2xl text-[11px] font-black text-slate-300 uppercase tracking-widest">{tag}</span>
-                  ))}
-                </div>
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-10">
+            <div className="md:col-span-8 bg-white/5 border border-white/10 rounded-[48px] p-12 md:p-20 reveal hover:bg-white/10 transition-all" style={{transitionDelay: '100ms'}}>
+              <div className="w-16 h-16 bg-brand/10 rounded-2xl flex items-center justify-center mb-10"><Fingerprint className="w-8 h-8 text-brand" /></div>
+              <h4 className="text-4xl md:text-6xl font-black text-white tracking-tighter mb-8 leading-none">Meritt ID Node</h4>
+              <p className="text-slate-400 text-lg md:text-2xl font-medium leading-relaxed mb-10 max-w-2xl">
+                Cryptographically secured professional identity. Verified nodes ensure every history and payout is tied to real people.
+              </p>
+              <div className="flex flex-wrap gap-3">
+                {['Encrypted', 'Local KYC', 'BML Sync'].map(tag => (
+                  <span key={tag} className="px-5 py-2.5 bg-white/5 border border-white/10 rounded-xl text-[10px] font-black text-slate-300 uppercase tracking-widest">{tag}</span>
+                ))}
               </div>
             </div>
 
-            {/* Side Features - Bento Column */}
-            <div className="md:col-span-4 flex flex-col gap-8">
-              <div className="flex-1 bg-white/5 p-10 rounded-[48px] border border-white/10 reveal hover:bg-white/10 transition-colors" style={{transitionDelay: '200ms'}}>
+            <div className="md:col-span-4 flex flex-col gap-6 lg:gap-10">
+              <div className="flex-1 bg-white/5 border border-white/10 rounded-[48px] p-12 reveal hover:bg-white/10 transition-all" style={{transitionDelay: '200ms'}}>
                 <Globe className="w-12 h-12 text-blue-400 mb-8" />
-                <h4 className="text-2xl font-black text-white tracking-tight mb-4">BML Clearing</h4>
-                <p className="text-slate-400 leading-relaxed font-medium">Integrated gateways ensure funds move directly to your account. No intermediate processors.</p>
+                <h4 className="text-2xl font-black text-white mb-4">MVR Clearing</h4>
+                <p className="text-slate-400 leading-relaxed font-medium">Direct protocol clearing with local island banks. No middleman fees.</p>
               </div>
-              <div className="flex-1 bg-white/5 p-10 rounded-[48px] border border-white/10 reveal hover:bg-white/10 transition-colors" style={{transitionDelay: '300ms'}}>
+              <div className="flex-1 bg-white/5 border border-white/10 rounded-[48px] p-12 reveal hover:bg-white/10 transition-all" style={{transitionDelay: '300ms'}}>
                 <ShieldCheck className="w-12 h-12 text-emerald-400 mb-8" />
-                <h4 className="text-2xl font-black text-white tracking-tight mb-4">Escrow Nodes</h4>
-                <p className="text-slate-400 leading-relaxed font-medium">Automatic project clearing. Secure funds held until milestones are met.</p>
+                <h4 className="text-2xl font-black text-white mb-4">Escrow Core</h4>
+                <p className="text-slate-400 leading-relaxed font-medium">Funds locked in secure nodes and released on milestone verification.</p>
               </div>
+            </div>
+            
+            <div className="md:col-span-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+                {[
+                  { title: "Real-time Metrics", icon: BarChart3, desc: "Monitor your revenue streams across multiple island nodes." },
+                  { title: "Sovereign Chat", icon: MessageCircle, desc: "Encrypted direct communication with local stakeholders." },
+                  { title: "Risk Mitigation", icon: ShieldAlert, desc: "Automatic dispute resolution via community-vetted nodes." }
+                ].map((feat, i) => (
+                  <div key={i} className="bg-white/5 border border-white/10 rounded-[40px] p-10 reveal hover:bg-white/10 transition-all" style={{transitionDelay: `${i * 100}ms`}}>
+                    <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center mb-6">
+                      <feat.icon className="w-6 h-6 text-white" />
+                    </div>
+                    <h4 className="text-xl font-black text-white mb-3">{feat.title}</h4>
+                    <p className="text-[14px] text-slate-400 font-medium leading-relaxed">{feat.desc}</p>
+                  </div>
+                ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Pricing Section */}
-      <section id="pricing" className={`py-32 transition-all duration-1000 ${visibleSections.has('pricing') ? 'revealed' : ''}`}>
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-20 reveal">
-            <h3 className="text-[11px] font-black text-brand uppercase tracking-[0.5em] mb-6">Transparent Tiers</h3>
-            <div className="inline-flex p-1.5 bg-slate-100 dark:bg-dark-surface border border-slate-200 dark:border-dark-border rounded-3xl mb-12">
+      {/* Pricing Section with Horizontal Slider on Mobile */}
+      <section id="pricing" className={`py-24 md:py-40 transition-all duration-1000 ${visibleSections.has('pricing') ? 'revealed' : ''}`}>
+        <div className="max-w-[1440px] mx-auto px-6">
+          <div className="text-center mb-24 reveal">
+            <h2 className="text-[11px] font-black text-brand uppercase tracking-[0.5em] mb-6">Pricing Hub</h2>
+            <h3 className="text-4xl md:text-7xl font-black tracking-tight mb-12">Scalable Sync.</h3>
+            
+            <div className="inline-flex p-1.5 bg-slate-100 dark:bg-dark-surface border border-slate-200 dark:border-dark-border rounded-full shadow-inner">
               <button 
                 onClick={() => setPricingType('freelancer')}
-                className={`px-10 py-3.5 rounded-2xl text-[11px] font-black uppercase tracking-widest transition-all ${pricingType === 'freelancer' ? 'bg-white dark:bg-dark text-brand shadow-xl' : 'text-slate-400'}`}
+                className={`px-8 py-3 rounded-full text-[10px] font-black uppercase tracking-widest transition-all ${pricingType === 'freelancer' ? 'bg-white dark:bg-dark text-brand shadow-lg' : 'text-slate-400 hover:text-slate-600'}`}
               >
                 Freelancers
               </button>
               <button 
                 onClick={() => setPricingType('business')}
-                className={`px-10 py-3.5 rounded-2xl text-[11px] font-black uppercase tracking-widest transition-all ${pricingType === 'business' ? 'bg-white dark:bg-dark text-brand shadow-xl' : 'text-slate-400'}`}
+                className={`px-8 py-3 rounded-full text-[10px] font-black uppercase tracking-widest transition-all ${pricingType === 'business' ? 'bg-white dark:bg-dark text-brand shadow-lg' : 'text-slate-400 hover:text-slate-600'}`}
               >
                 Businesses
               </button>
             </div>
           </div>
 
-          <div className="mobile-slider md:grid md:grid-cols-3 md:gap-8 max-w-6xl mx-auto">
+          <div className="flex md:grid md:grid-cols-3 gap-8 overflow-x-auto md:overflow-visible no-scrollbar pb-10 md:pb-0 -mx-6 px-6 snap-x snap-mandatory">
             {currentPlans.map((plan, i) => (
-              <div key={plan.name} className={`p-10 rounded-[48px] border transition-all flex flex-col reveal group ${plan.featured ? 'border-brand ring-4 ring-brand/5 shadow-2xl lg:scale-105 z-10 glass-card' : 'border-slate-100 dark:border-dark-border hover:border-brand/40 bg-white dark:bg-dark-surface'}`} style={{transitionDelay: `${i * 150}ms`}}>
+              <div 
+                key={plan.name} 
+                className={`p-10 md:p-12 rounded-[40px] border transition-all flex flex-col reveal relative min-w-[320px] md:min-w-0 snap-center ${
+                  plan.featured 
+                  ? 'border-brand bg-white dark:bg-dark shadow-2xl z-10 md:-translate-y-4 scale-105' 
+                  : 'border-slate-100 dark:border-dark-border bg-white/50 dark:bg-dark-surface/50 hover:border-brand/40'
+                }`} 
+                style={{transitionDelay: `${i * 100}ms`}}
+              >
+                {plan.featured && <span className="absolute -top-4 left-1/2 -translate-x-1/2 bg-brand text-white text-[9px] font-black uppercase px-6 py-2 rounded-full tracking-[0.2em] shadow-xl">Recommended</span>}
                 <div className="mb-10">
-                  <div className="w-14 h-14 bg-brand/5 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                    <plan.icon className="w-7 h-7 text-brand" />
-                  </div>
-                  <div className="flex items-center gap-3 mb-2">
-                    <h4 className="text-2xl font-black dark:text-white uppercase tracking-tighter">{plan.name}</h4>
-                    <span className="thaana-text text-xl font-bold text-slate-400">{plan.thaana}</span>
-                  </div>
-                  <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-8">{plan.desc}</p>
-                  <div className="flex items-baseline gap-2">
-                    <span className="text-5xl font-black tracking-tighter dark:text-white">{plan.price}</span>
-                    <span className="text-sm font-bold text-slate-400">/ mo</span>
-                  </div>
+                   <div className={`w-12 h-12 rounded-2xl flex items-center justify-center mb-8 ${plan.featured ? 'bg-brand/10 text-brand' : 'bg-slate-100 dark:bg-dark text-slate-400'}`}>
+                      <plan.icon className="w-6 h-6" />
+                   </div>
+                   <h4 className="text-3xl font-black dark:text-white uppercase mb-1">{plan.name}</h4>
+                   <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-8">{plan.desc}</p>
+                   <div className="flex items-baseline gap-2">
+                     <span className="text-sm font-bold text-slate-400 uppercase">MVR</span>
+                     <span className="text-6xl font-black dark:text-white tabular-nums leading-none">{plan.price}</span>
+                     <span className="text-sm font-medium text-slate-400">/mo</span>
+                   </div>
                 </div>
-
-                <div className="space-y-4 mb-10 flex-1">
-                  <div className="flex items-center gap-3 text-brand font-black text-[11px] uppercase tracking-widest">
-                    <Shield className="w-4 h-4" /> {plan.fee} Commission
-                  </div>
-                  {['Unlimited Gigs', 'Meritt ID Security', 'Instant Payouts'].map(perk => (
-                    <div key={perk} className="flex items-center gap-3 text-slate-500 dark:text-slate-400 text-[13px] font-medium">
-                      <div className="w-1.5 h-1.5 bg-brand rounded-full" /> {perk}
+                <div className="space-y-4 mb-10 flex-1 pt-8 border-t border-slate-50 dark:border-dark-border">
+                  <div className="text-[10px] font-black text-brand uppercase tracking-widest mb-6">{plan.fee} Clear Fee</div>
+                  {plan.perks.map(perk => (
+                    <div key={perk} className="flex items-center gap-3 text-slate-600 dark:text-slate-400 text-[14px] font-medium">
+                      <Check className="w-4 h-4 text-brand" /> {perk}
                     </div>
                   ))}
                 </div>
-
-                <button onClick={onJoin} className={`w-full py-5 rounded-3xl font-black text-[11px] uppercase tracking-widest transition-all ${plan.featured ? 'bg-brand text-white shadow-2xl' : 'bg-slate-50 dark:bg-dark border border-slate-200 dark:border-dark-border text-slate-900 dark:text-white hover:border-brand'}`}>
-                  Get Started
-                </button>
+                <button onClick={onJoin} className={`w-full py-5 rounded-2xl font-black text-[11px] uppercase tracking-widest transition-all ${plan.featured ? 'bg-brand text-white shadow-xl shadow-brand/30 hover:brightness-110' : 'bg-slate-50 dark:bg-dark border border-slate-200 dark:border-dark-border text-slate-900 dark:text-white hover:border-brand'}`}>Sync Now</button>
               </div>
             ))}
           </div>
@@ -430,27 +459,27 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin, d
       </section>
 
       {/* FAQ Section */}
-      <section id="faq" className={`py-32 transition-all duration-1000 ${visibleSections.has('faq') ? 'revealed' : ''}`}>
-        <div className="container mx-auto px-6 max-w-4xl">
-          <div className="text-center mb-20 reveal">
-            <h3 className="text-[11px] font-black text-brand uppercase tracking-[0.5em] mb-4">Support Hub</h3>
-            <h2 className="text-4xl font-black tracking-tight leading-tight">KNOW BEFORE YOU <span className="text-brand">SYNC.</span></h2>
+      <section id="faq" className={`py-24 md:py-40 transition-all duration-1000 ${visibleSections.has('faq') ? 'revealed' : ''}`}>
+        <div className="max-w-4xl mx-auto px-6">
+          <div className="text-center mb-24 reveal">
+            <h2 className="text-[11px] font-black text-brand uppercase tracking-[0.5em] mb-6">Support Protocol</h2>
+            <h3 className="text-4xl md:text-7xl font-black tracking-tight leading-none uppercase">The Meritt <br/><span className="text-brand">Guide.</span></h3>
           </div>
           <div className="space-y-4">
             {FAQ_ITEMS.map((item, i) => (
-              <div key={i} className="glass-card rounded-[32px] overflow-hidden transition-all reveal" style={{transitionDelay: `${i * 100}ms`}}>
+              <div key={i} className="reveal bg-white dark:bg-dark-surface border border-slate-100 dark:border-dark-border rounded-3xl overflow-hidden transition-all hover:border-brand/40" style={{transitionDelay: `${i * 100}ms`}}>
                 <button 
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                  className="w-full px-8 py-7 text-left flex items-center justify-between group"
+                  className="w-full flex items-center justify-between p-8 text-left group"
                 >
-                  <span className="text-[14px] md:text-[16px] font-black dark:text-white group-hover:text-brand transition-colors pr-6">{item.q}</span>
-                  <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-all shrink-0 ${openFaq === i ? 'bg-brand text-white rotate-45' : 'bg-slate-50 dark:bg-dark'}`}>
+                  <span className="text-lg font-black dark:text-white group-hover:text-brand transition-colors">{item.q}</span>
+                  <div className={`w-10 h-10 rounded-full border border-slate-100 dark:border-dark-border flex items-center justify-center transition-all ${openFaq === i ? 'bg-brand text-white border-brand rotate-45' : ''}`}>
                     <X className="w-4 h-4" />
                   </div>
                 </button>
                 {openFaq === i && (
-                  <div className="px-8 pb-8 animate-in slide-in-from-top-2">
-                    <p className="text-[14px] text-slate-500 dark:text-slate-400 leading-relaxed font-medium">{item.a}</p>
+                  <div className="px-8 pb-8 pt-0 animate-in fade-in duration-300">
+                    <p className="text-[14px] text-slate-500 font-medium leading-relaxed max-w-2xl">{item.a}</p>
                   </div>
                 )}
               </div>
@@ -460,55 +489,61 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin, d
       </section>
 
       {/* CTA Section */}
-      <section id="cta" className={`py-32 bg-brand mx-4 md:mx-8 rounded-[60px] relative overflow-hidden text-center text-white mb-8 transition-all duration-1000 ${visibleSections.has('cta') ? 'revealed' : ''}`}>
-        <div className="absolute inset-0 bg-black/10"></div>
-        <div className="relative z-10 px-6">
-          <h2 className="text-4xl md:text-8xl font-black tracking-tighter mb-10 leading-[0.9] reveal">READY TO START YOUR <br className="hidden md:block"/> NEW GIG?</h2>
-          <p className="text-lg md:text-2xl text-white/70 font-medium mb-12 max-w-2xl mx-auto leading-relaxed reveal" style={{transitionDelay: '100ms'}}>Join 5,000+ professionals building the future of the local economy.</p>
-          <button onClick={onJoin} className="bg-white text-brand px-12 py-6 rounded-3xl font-black text-sm uppercase tracking-[0.2em] shadow-2xl hover:scale-105 transition-all reveal" style={{transitionDelay: '200ms'}}>
-            Join Workspace Now
+      <section id="cta" className={`py-32 md:py-60 bg-brand mx-6 md:mx-12 rounded-[60px] md:rounded-[100px] text-center text-white mb-20 relative overflow-hidden transition-all duration-1000 ${visibleSections.has('cta') ? 'revealed' : ''}`}>
+        <div className="relative z-10 px-8">
+          <h2 className="text-5xl md:text-[9rem] font-black tracking-tighter leading-none mb-12 uppercase reveal">Sync your <br/>island ship.</h2>
+          <p className="text-lg md:text-3xl text-white/80 font-medium mb-16 max-w-4xl mx-auto leading-relaxed reveal" style={{transitionDelay: '100ms'}}>Join the sovereign professional protocol powering the Maldives.</p>
+          <button onClick={onJoin} className="reveal bg-white text-brand px-12 py-6 rounded-full font-black text-lg uppercase tracking-[0.2em] shadow-2xl hover:scale-105 active:scale-95 transition-all flex items-center justify-center gap-4 mx-auto group" style={{transitionDelay: '200ms'}}>
+            Join Node <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
           </button>
         </div>
+        <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-[120px] -mr-40 -mt-40"></div>
+        <div className="absolute bottom-0 left-0 w-80 h-80 bg-white/10 rounded-full blur-[100px] -ml-40 -mb-40"></div>
       </section>
 
       {/* Footer */}
-      <footer className="py-20 border-t border-slate-100 dark:border-dark-border bg-white dark:bg-dark transition-colors">
-        <div className="container mx-auto px-6">
+      <footer className="py-24 border-t border-slate-100 dark:border-dark-border">
+        <div className="max-w-[1440px] mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
             <div className="col-span-1 md:col-span-1">
-              <span className="brand-text text-3xl text-brand mb-6 block">meritt.</span>
-              <p className="text-[13px] text-slate-500 leading-relaxed font-medium">The modern professional network for the Maldives. Secured by Meritt ID and powered by local talent.</p>
+              <span className="brand-text text-3xl text-brand mb-8 block">meritt.</span>
+              <p className="text-slate-500 font-medium leading-relaxed">Sovereign workspace infrastructure for the island nation.</p>
             </div>
             <div>
-              <h5 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-6">Platform</h5>
+              <h5 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-8">Platform</h5>
               <ul className="space-y-4">
-                {['Browse Gigs', 'Find Talent', 'Identity Vault'].map(item => (
-                  <li key={item}><button className="text-[12px] font-bold text-slate-500 hover:text-brand transition-colors">{item}</button></li>
+                {['Nodes', 'Marketplace', 'Meritt ID', 'Escrow'].map(item => (
+                  <li key={item}><button className="text-[13px] font-medium text-slate-500 hover:text-brand transition-colors">{item}</button></li>
                 ))}
               </ul>
             </div>
             <div>
-              <h5 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-6">Community</h5>
+              <h5 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-8">Company</h5>
               <ul className="space-y-4">
-                {['Success Stories', 'Local Events', 'Referral Program'].map(item => (
-                  <li key={item}><button className="text-[12px] font-bold text-slate-500 hover:text-brand transition-colors">{item}</button></li>
+                {['Island Success', 'Governance', 'Contact'].map(item => (
+                  <li key={item}><button className="text-[13px] font-medium text-slate-500 hover:text-brand transition-colors">{item}</button></li>
                 ))}
               </ul>
             </div>
             <div>
-              <h5 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-6">Legal</h5>
-              <ul className="space-y-4">
-                {['Privacy Policy', 'Terms of Sync', 'Node Security'].map(item => (
-                  <li key={item}><button className="text-[12px] font-bold text-slate-500 hover:text-brand transition-colors">{item}</button></li>
-                ))}
-              </ul>
+              <h5 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-8">Newsletter</h5>
+              <div className="flex gap-2 p-1 bg-slate-50 dark:bg-dark-surface border border-slate-100 dark:border-dark-border rounded-xl">
+                <input className="bg-transparent text-xs px-3 outline-none flex-1" placeholder="Email" />
+                <button className="bg-brand text-white px-4 py-2 rounded-lg text-[9px] font-black uppercase">Join</button>
+              </div>
             </div>
           </div>
           <div className="flex flex-col md:flex-row items-center justify-between pt-12 border-t border-slate-50 dark:border-dark-border gap-6">
-            <p className="text-[10px] font-black text-slate-300 uppercase tracking-widest">© 2024 Meritt Workspace Protocol. All Rights Reserved.</p>
-            <div className="flex items-center gap-6">
-               <Globe className="w-4 h-4 text-slate-300" />
-               <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Maldives Standard Time</span>
+            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.3em]">© 2024 Meritt Workspace Protocol.</p>
+            <div className="flex items-center gap-8">
+               <div className="flex items-center gap-2">
+                 <Globe className="w-4 h-4 text-slate-300" />
+                 <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Malé, Maldives</span>
+               </div>
+               <div className="flex items-center gap-2">
+                 <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
+                 <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Protocol Sync: Live</span>
+               </div>
             </div>
           </div>
         </div>
