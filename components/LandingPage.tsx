@@ -196,6 +196,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin, d
           background-image: radial-gradient(circle at 2px 2px, rgba(255, 255, 255, 0.03) 1px, transparent 0);
         }
         .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
       `}</style>
 
       {/* Header */}
@@ -371,7 +372,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin, d
         </div>
       </section>
 
-      {/* Job Domains Grid */}
+      {/* Job Domains Grid - Horizontal scrolling on mobile */}
       <section id="gigs" className={`py-20 md:py-48 transition-all duration-1000 ${visibleSections.has('gigs') ? 'revealed' : ''}`}>
         <div className="max-w-[1440px] mx-auto px-6">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-10 mb-16 md:mb-24 reveal">
@@ -384,9 +385,9 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin, d
             </button>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
+          <div className="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-12 overflow-x-auto md:overflow-visible no-scrollbar -mx-6 px-6 pb-8 md:pb-0 snap-x snap-mandatory">
             {CATEGORIES.map((cat, i) => (
-              <div key={i} className="reveal p-10 md:p-14 bg-white dark:bg-dark-surface border border-slate-100 dark:border-dark-border rounded-[40px] md:rounded-[56px] group hover:border-brand/40 transition-all shadow-sm" style={{transitionDelay: `${i * 80}ms`}}>
+              <div key={i} className="reveal p-8 md:p-14 bg-white dark:bg-dark-surface border border-slate-100 dark:border-dark-border rounded-[40px] md:rounded-[56px] group hover:border-brand/40 transition-all shadow-sm min-w-[280px] md:min-w-0 snap-center" style={{transitionDelay: `${i * 80}ms`}}>
                 <div className="flex justify-between items-start mb-12 md:mb-16">
                   <div className={`w-16 h-16 ${cat.color} rounded-[24px] flex items-center justify-center text-white shadow-xl group-hover:rotate-12 transition-transform`}>
                     <cat.icon className="w-8 h-8" />
@@ -397,7 +398,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin, d
                    <h4 className="text-2xl md:text-4xl font-black mb-2 dark:text-white tracking-tight uppercase">{cat.name}</h4>
                    <p className="thaana-font text-2xl md:text-4xl font-bold text-slate-400 opacity-70">{cat.thaana}</p>
                 </div>
-                <div className="flex items-center gap-4 text-[10px] md:text-[12px] font-black uppercase tracking-widest text-brand opacity-0 group-hover:opacity-100 translate-x-[-15px] group-hover:translate-x-0 transition-all">
+                <div className="flex items-center gap-4 text-[10px] md:text-[12px] font-black uppercase tracking-widest text-brand md:opacity-0 md:group-hover:opacity-100 md:translate-x-[-15px] md:group-hover:translate-x-0 transition-all">
                    Explore Category <ChevronRight className="w-5 h-5" />
                 </div>
               </div>
@@ -486,7 +487,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin, d
         </div>
       </section>
 
-      {/* Simple Pricing */}
+      {/* Simple Pricing - Horizontal scrolling on mobile */}
       <section id="pricing" className={`py-24 md:py-64 transition-all duration-1000 ${visibleSections.has('pricing') ? 'revealed' : ''}`}>
         <div className="max-w-[1440px] mx-auto px-6 overflow-visible">
           <div className="text-center mb-20 md:mb-40 reveal">
@@ -499,9 +500,9 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin, d
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 md:gap-14">
+          <div className="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-14 overflow-x-auto md:overflow-visible no-scrollbar -mx-6 px-6 pb-12 md:pb-0 snap-x snap-mandatory">
             {currentPlans.map((plan, i) => (
-              <div key={plan.name} className={`p-12 md:p-16 rounded-[48px] md:rounded-[64px] border-2 transition-all flex flex-col reveal relative ${plan.featured ? 'border-brand bg-white dark:bg-dark shadow-2xl z-10 lg:-translate-y-12 lg:scale-105' : 'border-slate-100 dark:border-dark-border bg-white dark:bg-dark-surface hover:border-brand/40 shadow-sm'}`} style={{transitionDelay: `${i * 100}ms`}}>
+              <div key={plan.name} className={`p-10 md:p-16 rounded-[48px] md:rounded-[64px] border-2 transition-all flex flex-col reveal relative min-w-[300px] md:min-w-0 snap-center ${plan.featured ? 'border-brand bg-white dark:bg-dark shadow-2xl z-10 lg:-translate-y-12 lg:scale-105' : 'border-slate-100 dark:border-dark-border bg-white dark:bg-dark-surface hover:border-brand/40 shadow-sm'}`} style={{transitionDelay: `${i * 100}ms`}}>
                 {plan.featured && <span className="absolute -top-5 md:-top-7 left-1/2 -translate-x-1/2 bg-brand text-white text-[10px] md:text-[12px] font-black uppercase px-12 py-3 rounded-full tracking-widest shadow-2xl border-4 border-white dark:border-dark">Popular</span>}
                 <div className="mb-12">
                    <div className={`w-16 h-16 md:w-20 md:h-20 rounded-[24px] md:rounded-[32px] flex items-center justify-center mb-10 shadow-inner ${plan.featured ? 'bg-brand/10 text-brand' : 'bg-slate-50 dark:bg-dark text-slate-400'}`}><plan.icon className="w-8 h-8 md:w-10 md:h-10" /></div>
@@ -509,7 +510,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin, d
                    <p className="text-[10px] md:text-[12px] font-black text-slate-400 uppercase tracking-widest mb-10">{plan.desc}</p>
                    <div className="flex items-baseline gap-4">
                      <span className="text-lg md:text-xl font-black text-slate-400 uppercase tracking-widest">MVR</span>
-                     <span className="text-6xl md:text-[6rem] font-black dark:text-white tabular-nums leading-none tracking-tighter">{plan.price}</span>
+                     <span className="text-5xl md:text-[6rem] font-black dark:text-white tabular-nums leading-none tracking-tighter">{plan.price}</span>
                      <span className="text-lg md:text-xl font-bold text-slate-400">/mo</span>
                    </div>
                 </div>
