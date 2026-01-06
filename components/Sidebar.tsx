@@ -35,25 +35,25 @@ const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, role, userNa
   return (
     <aside className="hidden md:flex w-[240px] h-full bg-[#F9FAFB] dark:bg-dark-surface flex-col border-r border-[#E2E8F0] dark:border-dark-border transition-colors">
       <div className="p-8 pb-6">
-        <span className="brand-text text-2xl text-brand">meritt.</span>
+        <span className="brand-text text-2xl text-brand dark:text-white">meritt.</span>
       </div>
 
       <div className="px-8 py-2">
         <span className="text-[9px] font-black text-gray-400 dark:text-gray-500 uppercase tracking-[0.3em]">{role} Node</span>
       </div>
 
-      <nav className="flex-1 px-4 mt-6 space-y-1">
+      <nav className="flex-1 px-4 mt-6 space-y-1" role="navigation">
         {navItems.map((item) => (
           <button
             key={item.id}
             onClick={() => setActiveTab(item.id as TabType)}
             className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all group ${
               activeTab === item.id 
-              ? 'bg-white dark:bg-dark border border-[#E2E8F0] dark:border-dark-border shadow-sm text-brand font-bold' 
-              : 'text-gray-500 hover:text-brand hover:bg-white dark:hover:bg-dark/40'
+              ? 'bg-white dark:bg-dark border border-[#E2E8F0] dark:border-dark-border shadow-sm text-brand dark:text-white font-bold' 
+              : 'text-gray-500 hover:text-brand dark:hover:text-white hover:bg-white dark:hover:bg-dark/40'
             }`}
           >
-            <item.icon className={`w-4 h-4 ${activeTab === item.id ? 'text-brand' : ''}`} />
+            <item.icon className={`w-4 h-4 ${activeTab === item.id ? 'text-brand dark:text-white' : ''}`} />
             <span className="text-[12px] font-bold tracking-tight">{item.label}</span>
           </button>
         ))}

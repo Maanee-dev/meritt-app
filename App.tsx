@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { HashRouter as Router } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
@@ -24,6 +23,23 @@ const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState<TabType>('dashboard');
   const [isCommandPaletteOpen, setCommandPaletteOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
+
+  // Dynamic SEO Titles
+  useEffect(() => {
+    const baseTitle = 'Meritt Workspace';
+    let pageTitle = '';
+
+    if (!user) {
+      if (view === 'landing') pageTitle = 'The Professional Hub of the Maldives';
+      else if (view === 'public-marketplace') pageTitle = 'Explore Maldivian Gigs & Talent';
+      else if (view === 'login') pageTitle = 'Connect Your Identity';
+    } else {
+      const tabName = activeTab.charAt(0).toUpperCase() + activeTab.slice(1);
+      pageTitle = `${tabName} | ${user.role.charAt(0).toUpperCase() + user.role.slice(1)} Hub`;
+    }
+
+    document.title = `${pageTitle} — ${baseTitle}`;
+  }, [user, view, activeTab]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -51,7 +67,7 @@ const App: React.FC = () => {
       role: role,
       plan: role === 'freelancer' ? 'Professional' : 'Standard',
       isVerified: true,
-      isHuman: false, // Starts as false until biometric scan
+      isHuman: false,
       verificationTier: 'standard',
       merittId: 'MID-882-X92L'
     });
@@ -88,14 +104,14 @@ const App: React.FC = () => {
     if (view === 'public-marketplace') {
       return (
         <div className="min-h-screen bg-white dark:bg-dark transition-colors">
-          <header className="h-[64px] border-b border-[#E2E8F0] dark:border-dark-border bg-white dark:bg-dark flex items-center justify-between px-6 sticky top-0 z-50">
+          <header className="h-[72px] border-b border-[#E2E8F0] dark:border-dark-border bg-white/80 dark:bg-dark/80 backdrop-blur-md flex items-center justify-between px-6 sticky top-0 z-50">
             <div className="flex items-center cursor-pointer" onClick={() => setView('landing')}>
-              <span className="brand-text text-2xl text-brand">meritt.</span>
+              <span className="brand-text text-2xl text-brand dark:text-white">meritt.</span>
             </div>
             <div className="flex gap-4 items-center">
                <div className="hidden md:flex items-center gap-2 px-3 py-1.5 bg-brand/5 border border-brand/10 rounded-xl">
                   <Fingerprint className="w-4 h-4 text-brand" />
-                  <span className="text-[10px] font-black text-brand uppercase tracking-widest">Meritt ID Node Active</span>
+                  <span className="text-[10px] font-black text-brand uppercase tracking-widest">Meritt Node Active</span>
                </div>
                <button 
                   onClick={() => setDarkMode(!darkMode)}
@@ -104,7 +120,7 @@ const App: React.FC = () => {
                   {darkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
                </button>
                <button onClick={() => setView('login')} className="text-gray-500 dark:text-gray-400 font-bold text-sm hover:text-brand transition-colors">Log In</button>
-               <button onClick={() => setView('login')} className="bg-brand text-white px-5 py-2 rounded-xl font-black text-xs uppercase tracking-widest shadow-lg shadow-brand/20">Join</button>
+               <button onClick={() => setView('login')} className="bg-brand text-white px-5 py-2.5 rounded-xl font-black text-xs uppercase tracking-widest shadow-lg shadow-brand/20 transition-all hover:scale-105 active:scale-95">Join Marketplace</button>
             </div>
           </header>
           <main className="p-4 md:p-8 max-w-7xl mx-auto">
@@ -136,7 +152,7 @@ const App: React.FC = () => {
             setDarkMode={setDarkMode}
           />
           
-          <main className="flex-1 overflow-y-auto bg-white dark:bg-dark p-4 md:p-6 no-scrollbar pb-24 md:pb-6 transition-colors">
+          <main className="flex-1 overflow-y-auto bg-white dark:bg-dark p-4 md:p-6 no-scrollbar pb-24 md:pb-6 transition-colors" role="main">
             {activeTab === 'dashboard' && <Dashboard role={user.role} user={user} />}
             {activeTab === 'marketplace' && <Marketplace role={user.role} />}
             {activeTab === 'pipeline' && <Pipeline />}
