@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { HashRouter as Router } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
@@ -48,7 +49,11 @@ const App: React.FC = () => {
       id: '1',
       name: role === 'freelancer' ? 'Jauzaf Dhonbe' : role === 'business' ? 'TechWave Maldives' : 'Standard Visitor',
       role: role,
-      plan: role === 'freelancer' ? 'Professional' : 'Standard'
+      plan: role === 'freelancer' ? 'Professional' : 'Standard',
+      isVerified: true,
+      isHuman: false, // Starts as false until biometric scan
+      verificationTier: 'standard',
+      merittId: 'MID-882-X92L'
     });
     setView('workspace');
     if (role === 'user') setActiveTab('marketplace');
@@ -132,12 +137,12 @@ const App: React.FC = () => {
           />
           
           <main className="flex-1 overflow-y-auto bg-white dark:bg-dark p-4 md:p-6 no-scrollbar pb-24 md:pb-6 transition-colors">
-            {activeTab === 'dashboard' && <Dashboard role={user.role} />}
+            {activeTab === 'dashboard' && <Dashboard role={user.role} user={user} />}
             {activeTab === 'marketplace' && <Marketplace role={user.role} />}
             {activeTab === 'pipeline' && <Pipeline />}
             {activeTab === 'messages' && <Messages />}
             {activeTab === 'wallet' && <Wallet />}
-            {activeTab === 'settings' && <Settings user={user} />}
+            {activeTab === 'settings' && <Settings user={user} onUpdateUser={setUser} />}
           </main>
         </div>
 

@@ -8,15 +8,37 @@ export interface User {
   name: string;
   role: UserRole;
   plan: string;
+  referralCode?: string;
+  referralCount?: number;
   gstNumber?: string;
   tinNumber?: string;
+  // Sovereign Identity Fields
+  isVerified: boolean;
+  isHuman: boolean; // Proof of Human Status
+  verificationTier: 'unverified' | 'standard' | 'biometric';
+  merittId: string; // Unique Node ID
 }
 
-export interface Metric {
-  label: string;
-  value: string;
-  change: string;
-  isPositive: boolean;
+export interface ServiceTier {
+  price: string;
+  delivery: string;
+  revisions: string;
+  description: string;
+}
+
+export interface ServicePost {
+  id: string;
+  title: string;
+  freelancer: string;
+  category: string;
+  description: string;
+  tiers: {
+    basic: ServiceTier;
+    standard?: ServiceTier;
+    premium?: ServiceTier;
+  };
+  skills: string[];
+  rating: number;
 }
 
 export interface JobPost {
@@ -25,8 +47,17 @@ export interface JobPost {
   client: string;
   category: string;
   price: string;
+  description: string;
   verified: boolean;
-  type: 'job' | 'talent';
+  posted: string;
+  skills: string[];
+}
+
+export interface Metric {
+  label: string;
+  value: string;
+  change: string;
+  isPositive: boolean;
 }
 
 export interface PipelineColumn {
@@ -43,18 +74,18 @@ export interface PipelineCard {
   status?: string;
 }
 
-export interface Message {
-  id: string;
-  sender: string;
-  content: string;
-  timestamp: string;
-  isMe: boolean;
-}
-
 export interface Contact {
   id: string;
   name: string;
   lastMessage: string;
   time: string;
   unread?: number;
+}
+
+export interface Message {
+  id: string;
+  sender: string;
+  content: string;
+  timestamp: string;
+  isMe: boolean;
 }
