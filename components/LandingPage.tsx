@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import { 
   ArrowRight, 
@@ -198,7 +199,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin, d
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* Modern Gradients */
+        /* Modern Gradients restricted to hero */
         .ambient-glow {
           position: absolute;
           filter: blur(140px);
@@ -210,22 +211,13 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin, d
         .dark .ambient-glow { opacity: 0.12; }
 
         .glass-card {
-          background: rgba(255, 255, 255, 0.7);
+          background: rgba(255, 255, 255, 0.9);
           backdrop-filter: blur(24px);
-          -webkit-backdrop-filter: blur(24px);
         }
         .dark .glass-card {
-          background: rgba(24, 24, 27, 0.7);
+          background: rgba(24, 24, 27, 0.9);
         }
       `}</style>
-
-      {/* Global Aesthetics Overlay - STRICT BLUE GRADIENTS ONLY */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-        <div className="ambient-glow bg-brand w-[800px] h-[800px] -top-96 -left-48 animate-pulse" style={{ animationDuration: '8s' }}></div>
-        <div className="ambient-glow bg-brand w-[600px] h-[600px] top-[15%] -right-48 opacity-20" style={{ animationDuration: '10s' }}></div>
-        <div className="ambient-glow bg-brand w-[700px] h-[700px] top-[40%] left-1/4 opacity-15 dark:opacity-5"></div>
-        <div className="ambient-glow bg-brand w-[900px] h-[900px] bottom-0 -right-64 opacity-20"></div>
-      </div>
 
       {/* Header */}
       <header className={`fixed top-0 inset-x-0 z-[100] transition-all duration-700 border-b ${scrolled ? 'glass-header border-slate-200/50 dark:border-dark-border/50 h-16 shadow-lg shadow-black/5' : 'bg-transparent border-transparent h-20 md:h-28'}`}>
@@ -267,8 +259,15 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin, d
         </div>
       )}
 
-      {/* Hero Section */}
-      <section id="hero" className={`relative pt-32 md:pt-56 pb-20 md:pb-48 hero-grid overflow-visible transition-all duration-1000 ${visibleSections.has('hero') ? 'revealed' : ''}`}>
+      {/* Hero Section - AMBIENT BLUE GRADIENTS ARE ONLY HERE */}
+      <section id="hero" className={`relative pt-32 md:pt-56 pb-20 md:pb-48 hero-grid overflow-hidden transition-all duration-1000 ${visibleSections.has('hero') ? 'revealed' : ''}`}>
+        {/* Ambient Gradient Mesh for Hero Only */}
+        <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+          <div className="ambient-glow bg-brand w-[800px] h-[800px] -top-96 -left-48 animate-pulse" style={{ animationDuration: '8s' }}></div>
+          <div className="ambient-glow bg-brand w-[600px] h-[600px] top-[15%] -right-48 opacity-20" style={{ animationDuration: '10s' }}></div>
+          <div className="ambient-glow bg-brand w-[700px] h-[700px] top-[40%] left-1/4 opacity-15 dark:opacity-5"></div>
+        </div>
+
         <div className="max-w-[1440px] mx-auto px-6 text-center relative z-10">
           <div className="reveal inline-flex items-center gap-3 px-5 py-2 bg-brand/5 border border-brand/10 rounded-full mb-8 md:mb-12 backdrop-blur-md">
             <div className="w-2 h-2 bg-brand rounded-full animate-pulse"></div>
@@ -296,23 +295,6 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin, d
           {/* Hero UI Mockup */}
           <div className="reveal hero-mockup-wrapper max-w-[1100px] mx-auto delay-300 px-2 md:px-4 lg:px-0 relative">
              <div className="hero-mockup glass-card border border-white dark:border-dark-border/50 rounded-[24px] md:rounded-[48px] p-2 md:p-4 shadow-[0_40px_100px_-20px_rgba(0,0,0,0.15)] relative overflow-visible group">
-                
-                {/* Orbiting Elements - Visible on desktop/large tablets */}
-                <div className="absolute -left-16 top-1/4 hidden xl:block float z-20">
-                   <div className="glass-card border border-white/50 dark:border-dark-border/50 p-6 rounded-[32px] shadow-2xl w-64 text-left border-white shadow-brand/5">
-                      <div className="flex items-center gap-4 mb-3">
-                         <div className="w-10 h-10 bg-emerald-500/10 text-emerald-500 rounded-xl flex items-center justify-center"><Activity className="w-5 h-5"/></div>
-                         <div>
-                            <div className="text-[9px] font-black uppercase text-slate-400 tracking-widest">Network Status</div>
-                            <div className="text-lg font-black dark:text-white">Active</div>
-                         </div>
-                      </div>
-                      <div className="h-1.5 w-full bg-slate-100 dark:bg-dark-border rounded-full overflow-hidden">
-                         <div className="h-full bg-emerald-500 w-[95%]"></div>
-                      </div>
-                   </div>
-                </div>
-
                 <div className="bg-slate-50/50 dark:bg-dark rounded-[18px] md:rounded-[36px] overflow-hidden border border-slate-200 dark:border-dark-border aspect-[16/10] md:aspect-[16/9] relative shadow-inner">
                   <div className="h-10 md:h-16 border-b border-slate-200/50 dark:border-dark-border/50 bg-white/80 dark:bg-dark-surface/80 backdrop-blur-md flex items-center justify-between px-6 md:px-10">
                      <div className="flex items-center gap-6">
@@ -327,7 +309,6 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin, d
                         <div className="w-7 h-7 md:w-10 md:h-10 rounded-full bg-slate-200 dark:bg-dark-border ring-4 ring-slate-50 dark:ring-dark"></div>
                      </div>
                   </div>
-                  
                   <div className="p-4 md:p-10 grid grid-cols-12 gap-6 md:gap-10 h-full">
                      <div className="col-span-12 md:col-span-8 space-y-6 md:space-y-10">
                         <div className="bg-white/80 dark:bg-dark-surface/80 border border-slate-200/50 dark:border-dark-border/50 rounded-[20px] md:rounded-[40px] p-6 md:p-10 flex flex-col justify-between h-[150px] md:h-[280px] shadow-sm">
@@ -372,8 +353,8 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin, d
         </div>
       </section>
 
-      {/* Partners Marquee */}
-      <div className="border-y border-slate-200/50 dark:border-dark-border/50 py-8 md:py-12 overflow-hidden bg-white/30 dark:bg-dark/30 backdrop-blur-xl relative z-10">
+      {/* Partners Marquee - CLEAN BACKGROUND */}
+      <div className="border-y border-slate-200/50 dark:border-dark-border/50 py-8 md:py-12 overflow-hidden bg-white dark:bg-dark relative z-10">
         <div className="animate-marquee">
           {[...PARTNERS, ...PARTNERS].map((partner, i) => (
             <div key={i} className="flex items-center gap-10 px-16 md:px-24 opacity-30 dark:opacity-20 grayscale hover:grayscale-0 hover:opacity-100 transition-all cursor-default">
@@ -384,12 +365,12 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin, d
         </div>
       </div>
 
-      {/* Stats Section */}
-      <section id="stats" className={`py-16 md:py-32 transition-all duration-1000 relative z-10 ${visibleSections.has('stats') ? 'revealed' : ''}`}>
+      {/* Stats Section - CLEAN BACKGROUND */}
+      <section id="stats" className={`py-16 md:py-32 bg-white dark:bg-dark relative z-10 ${visibleSections.has('stats') ? 'revealed' : ''}`}>
         <div className="max-w-[1440px] mx-auto px-6 grid grid-cols-2 lg:grid-cols-4 gap-12 md:gap-16">
           {STATS.map((stat, i) => (
             <div key={i} className="reveal flex flex-col items-center text-center group" style={{transitionDelay: `${i * 100}ms`}}>
-              <div className="w-16 h-16 md:w-20 md:h-20 glass-card border border-slate-200/50 dark:border-dark-border/50 rounded-[24px] md:rounded-[32px] flex items-center justify-center mb-6 group-hover:bg-brand group-hover:text-white transition-all shadow-sm">
+              <div className="w-16 h-16 md:w-20 md:h-20 bg-slate-50 dark:bg-dark-surface border border-slate-200 dark:border-dark-border rounded-[24px] md:rounded-[32px] flex items-center justify-center mb-6 group-hover:bg-brand group-hover:text-white transition-all shadow-sm">
                  <stat.icon className="w-7 h-7 md:w-8 md:h-8" />
               </div>
               <h3 className="text-4xl md:text-7xl font-black tracking-tighter dark:text-white mb-2 uppercase">{stat.value}</h3>
@@ -399,8 +380,8 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin, d
         </div>
       </section>
 
-      {/* Domains Section */}
-      <section id="gigs" className={`py-20 md:py-48 transition-all duration-1000 relative z-10 ${visibleSections.has('gigs') ? 'revealed' : ''}`}>
+      {/* Domains Section - CLEAN BACKGROUND */}
+      <section id="gigs" className={`py-20 md:py-48 bg-white dark:bg-dark relative z-10 ${visibleSections.has('gigs') ? 'revealed' : ''}`}>
         <div className="max-w-[1440px] mx-auto px-6">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-10 mb-16 md:mb-24 reveal">
             <div className="max-w-4xl">
@@ -414,7 +395,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin, d
 
           <div className="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-12 overflow-x-auto md:overflow-visible no-scrollbar -mx-6 px-6 pb-8 md:pb-0 snap-x snap-mandatory">
             {CATEGORIES.map((cat, i) => (
-              <div key={i} className="reveal p-8 md:p-14 glass-card border border-slate-200/50 dark:border-dark-border/50 rounded-[40px] md:rounded-[56px] group hover:border-brand/40 transition-all shadow-xl shadow-black/5 min-w-[280px] md:min-w-0 snap-center" style={{transitionDelay: `${i * 80}ms`}}>
+              <div key={i} className="reveal p-8 md:p-14 bg-slate-50 dark:bg-dark-surface border border-slate-200 dark:border-dark-border rounded-[40px] md:rounded-[56px] group hover:border-brand/40 transition-all shadow-sm min-w-[280px] md:min-w-0 snap-center" style={{transitionDelay: `${i * 80}ms`}}>
                 <div className="flex justify-between items-start mb-12 md:mb-16">
                   <div className={`w-16 h-16 ${cat.color} rounded-[24px] flex items-center justify-center text-white shadow-xl group-hover:rotate-12 transition-transform`}>
                     <cat.icon className="w-8 h-8" />
@@ -434,12 +415,11 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin, d
         </div>
       </section>
 
-      {/* Features Section */}
-      <section id="features" className={`py-20 md:py-48 transition-all duration-1000 relative z-10 ${visibleSections.has('features') ? 'revealed' : ''}`}>
+      {/* Features Section - CLEAN BACKGROUND */}
+      <section id="features" className={`py-20 md:py-48 bg-white dark:bg-dark relative z-10 ${visibleSections.has('features') ? 'revealed' : ''}`}>
         <div className="max-w-[1440px] mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 md:gap-16">
             <div className="lg:col-span-7 bg-slate-900 dark:bg-brand/10 border border-white/10 dark:border-brand/10 rounded-[48px] md:rounded-[72px] p-10 md:p-20 reveal overflow-hidden relative group shadow-2xl">
-              <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-brand/20 blur-[100px] rounded-full group-hover:scale-125 transition-transform duration-1000"></div>
               <div className="relative z-10">
                 <div className="w-16 h-16 md:w-20 md:h-20 bg-brand/30 rounded-[24px] flex items-center justify-center mb-10 md:mb-14">
                   <ShieldCheck className="w-10 h-10 md:w-12 md:h-12 text-white" />
@@ -457,12 +437,12 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin, d
             </div>
 
             <div className="lg:col-span-5 flex flex-col gap-10 md:gap-16">
-              <div className="flex-1 glass-card border border-slate-200/50 dark:border-dark-border/50 rounded-[40px] md:rounded-[64px] p-10 md:p-14 reveal group shadow-xl shadow-black/5" style={{transitionDelay: '100ms'}}>
+              <div className="flex-1 bg-slate-50 dark:bg-dark-surface border border-slate-200 dark:border-dark-border rounded-[40px] md:rounded-[64px] p-10 md:p-14 reveal group shadow-sm hover:border-brand/40 transition-colors" style={{transitionDelay: '100ms'}}>
                 <Globe className="w-12 h-12 md:w-16 md:h-16 text-brand mb-10 transition-transform group-hover:rotate-12" />
                 <h4 className="text-3xl font-black dark:text-white mb-4 uppercase tracking-tight">Across All Atolls</h4>
                 <p className="text-slate-500 dark:text-slate-400 leading-relaxed font-medium text-lg md:text-xl">Hire talent from Male' to the furthest islands. We connect the whole country.</p>
               </div>
-              <div className="flex-1 glass-card border border-slate-200/50 dark:border-dark-border/50 rounded-[40px] md:rounded-[64px] p-10 md:p-14 reveal group shadow-xl shadow-black/5" style={{transitionDelay: '200ms'}}>
+              <div className="flex-1 bg-slate-50 dark:bg-dark-surface border border-slate-200 dark:border-dark-border rounded-[40px] md:rounded-[64px] p-10 md:p-14 reveal group shadow-sm hover:border-brand/40 transition-colors" style={{transitionDelay: '200ms'}}>
                 <Fingerprint className="w-12 h-12 md:w-16 md:h-16 text-brand mb-10 transition-transform group-hover:scale-110" />
                 <h4 className="text-3xl font-black dark:text-white mb-4 uppercase tracking-tight">Verified Locals</h4>
                 <p className="text-slate-500 dark:text-slate-400 leading-relaxed font-medium text-lg md:text-xl">Every user is a verified Maldivian resident or business. Trust is our core.</p>
@@ -472,8 +452,8 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin, d
         </div>
       </section>
 
-      {/* FAQ Section - Cleaned up background as requested */}
-      <section id="faq" className={`py-20 md:py-48 transition-all duration-1000 relative z-10 ${visibleSections.has('faq') ? 'revealed' : ''}`}>
+      {/* FAQ Section - NO MESH GRADIENT */}
+      <section id="faq" className={`py-20 md:py-48 bg-white dark:bg-dark transition-all duration-1000 relative z-10 ${visibleSections.has('faq') ? 'revealed' : ''}`}>
         <div className="max-w-4xl mx-auto px-6">
           <div className="text-center mb-16 md:mb-28 reveal">
             <h2 className="text-[11px] md:text-[13px] font-black text-brand uppercase tracking-[0.6em] mb-6">Simple Help</h2>
@@ -486,8 +466,8 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin, d
                 key={i} 
                 className={`border rounded-[32px] overflow-hidden transition-all duration-500 ${
                   openFaq === i 
-                  ? 'bg-white dark:bg-dark border-brand shadow-2xl' 
-                  : 'glass-card border-slate-200/50 dark:border-dark-border/50 hover:border-brand/40 shadow-sm'
+                  ? 'bg-slate-50 dark:bg-dark-surface border-brand shadow-lg' 
+                  : 'bg-white dark:bg-dark border-slate-200 dark:border-dark-border hover:border-brand/40 shadow-sm'
                 }`}
               >
                 <button 
@@ -514,25 +494,25 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin, d
         </div>
       </section>
 
-      {/* Pricing Section */}
-      <section id="pricing" className={`py-24 md:py-64 transition-all duration-1000 relative z-10 ${visibleSections.has('pricing') ? 'revealed' : ''}`}>
+      {/* Pricing Section - NO MESH GRADIENT */}
+      <section id="pricing" className={`py-24 md:py-64 bg-white dark:bg-dark transition-all duration-1000 relative z-10 ${visibleSections.has('pricing') ? 'revealed' : ''}`}>
         <div className="max-w-[1440px] mx-auto px-6 overflow-visible">
           <div className="text-center mb-20 md:mb-40 reveal">
             <h2 className="text-[11px] md:text-[13px] font-black text-brand uppercase tracking-[0.7em] mb-10">Pricing</h2>
             <h3 className="text-4xl md:text-[8rem] font-black tracking-tighter mb-16 md:mb-24 uppercase leading-none">Simple Plans.</h3>
             
-            <div className="inline-flex p-2 md:p-3 glass-card border border-slate-200/50 dark:border-dark-border/50 rounded-[28px] mb-16 shadow-lg shadow-black/5">
-              <button onClick={() => setPricingType('freelancer')} className={`px-10 md:px-14 py-4 md:py-5 rounded-[20px] md:rounded-[24px] text-[10px] md:text-[12px] font-black uppercase tracking-widest transition-all ${pricingType === 'freelancer' ? 'bg-white dark:bg-dark text-brand shadow-2xl' : 'text-slate-400 hover:text-slate-600'}`}>Freelancer</button>
-              <button onClick={() => setPricingType('business')} className={`px-10 md:px-14 py-4 md:py-5 rounded-[20px] md:rounded-[24px] text-[10px] md:text-[12px] font-black uppercase tracking-widest transition-all ${pricingType === 'business' ? 'bg-white dark:bg-dark text-brand shadow-2xl' : 'text-slate-400 hover:text-slate-600'}`}>Business</button>
+            <div className="inline-flex p-2 md:p-3 bg-slate-50 dark:bg-dark-surface border border-slate-200 dark:border-dark-border rounded-[28px] mb-16 shadow-sm">
+              <button onClick={() => setPricingType('freelancer')} className={`px-10 md:px-14 py-4 md:py-5 rounded-[20px] md:rounded-[24px] text-[10px] md:text-[12px] font-black uppercase tracking-widest transition-all ${pricingType === 'freelancer' ? 'bg-white dark:bg-dark text-brand shadow-md' : 'text-slate-400 hover:text-slate-600'}`}>Freelancer</button>
+              <button onClick={() => setPricingType('business')} className={`px-10 md:px-14 py-4 md:py-5 rounded-[20px] md:rounded-[24px] text-[10px] md:text-[12px] font-black uppercase tracking-widest transition-all ${pricingType === 'business' ? 'bg-white dark:bg-dark text-brand shadow-md' : 'text-slate-400 hover:text-slate-600'}`}>Business</button>
             </div>
           </div>
 
           <div className="flex md:grid md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-14 overflow-x-auto md:overflow-visible no-scrollbar -mx-6 px-6 pb-12 md:pb-0 snap-x snap-mandatory">
             {currentPlans.map((plan, i) => (
-              <div key={plan.name} className={`p-10 md:p-16 rounded-[48px] md:rounded-[64px] border-2 transition-all flex flex-col reveal relative min-w-[300px] md:min-w-0 snap-center ${plan.featured ? 'border-brand bg-white dark:bg-dark shadow-2xl z-10 lg:-translate-y-12 lg:scale-105' : 'glass-card border-slate-200/50 dark:border-dark-border/50 hover:border-brand/40 shadow-xl shadow-black/5'}`} style={{transitionDelay: `${i * 100}ms`}}>
+              <div key={plan.name} className={`p-10 md:p-16 rounded-[48px] md:rounded-[64px] border-2 transition-all flex flex-col reveal relative min-w-[300px] md:min-w-0 snap-center ${plan.featured ? 'border-brand bg-white dark:bg-dark shadow-2xl z-10 lg:-translate-y-12 lg:scale-105' : 'bg-slate-50 dark:bg-dark-surface border-slate-100 dark:border-dark-border hover:border-brand/40 shadow-sm'}`} style={{transitionDelay: `${i * 100}ms`}}>
                 {plan.featured && <span className="absolute -top-5 md:-top-7 left-1/2 -translate-x-1/2 bg-brand text-white text-[10px] md:text-[12px] font-black uppercase px-12 py-3 rounded-full tracking-widest shadow-2xl border-4 border-white dark:border-dark">Popular</span>}
                 <div className="mb-12">
-                   <div className={`w-16 h-16 md:w-20 md:h-20 rounded-[24px] md:rounded-[32px] flex items-center justify-center mb-10 shadow-inner ${plan.featured ? 'bg-brand/10 text-brand' : 'bg-slate-50 dark:bg-dark text-slate-400'}`}><plan.icon className="w-8 h-8 md:w-10 md:h-10" /></div>
+                   <div className={`w-16 h-16 md:w-20 md:h-20 rounded-[24px] md:rounded-[32px] flex items-center justify-center mb-10 shadow-inner ${plan.featured ? 'bg-brand/10 text-brand' : 'bg-white dark:bg-dark text-slate-400'}`}><plan.icon className="w-8 h-8 md:w-10 md:h-10" /></div>
                    <h4 className="text-3xl md:text-5xl font-black dark:text-white uppercase mb-2 tracking-tighter">{plan.name}</h4>
                    <p className="text-[10px] md:text-[12px] font-black text-slate-400 uppercase tracking-widest mb-10">{plan.desc}</p>
                    <div className="flex items-baseline gap-4">
@@ -545,19 +525,19 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin, d
                   <div className="text-[11px] md:text-[13px] font-black text-brand uppercase tracking-widest mb-8 flex items-center gap-4"><Shield className="w-6 h-6" /> {plan.fee} Clear Fee</div>
                   {plan.perks.map(perk => (
                     <div key={perk} className="flex items-center gap-5 text-slate-600 dark:text-slate-400 text-lg md:text-xl font-medium group">
-                      <div className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 transition-all ${plan.featured ? 'bg-brand/10 text-brand' : 'bg-slate-50 dark:bg-dark text-slate-300'}`}><Check className="w-5 h-5" /></div>
+                      <div className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 transition-all ${plan.featured ? 'bg-brand/10 text-brand' : 'bg-white dark:bg-dark text-slate-300'}`}><Check className="w-5 h-5" /></div>
                       <span className="group-hover:translate-x-4 transition-transform">{perk}</span>
                     </div>
                   ))}
                 </div>
-                <button onClick={onJoin} className={`w-full py-6 md:py-8 rounded-[36px] md:rounded-[48px] font-black text-[14px] uppercase tracking-widest transition-all active:scale-95 shadow-2xl ${plan.featured ? 'bg-brand text-white shadow-brand/40' : 'bg-slate-50/50 dark:bg-dark/50 border-2 border-slate-200 dark:border-dark-border text-slate-900 dark:text-white hover:border-brand shadow-sm'}`}>Start Now</button>
+                <button onClick={onJoin} className={`w-full py-6 md:py-8 rounded-[36px] md:rounded-[48px] font-black text-[14px] uppercase tracking-widest transition-all active:scale-95 shadow-2xl ${plan.featured ? 'bg-brand text-white shadow-brand/40' : 'bg-white dark:bg-dark border-2 border-slate-200 dark:border-dark-border text-slate-900 dark:text-white hover:border-brand shadow-sm'}`}>Start Now</button>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
+      {/* CTA Section - LOCAL ACCENTS ONLY */}
       <section id="cta" className={`py-24 md:py-32 bg-brand mx-6 md:mx-16 lg:mx-24 rounded-[60px] md:rounded-[100px] text-center text-white mb-24 md:mb-48 relative overflow-hidden shadow-[0_40px_120px_-20px_rgba(0,71,255,0.4)] transition-all duration-1000 ${visibleSections.has('cta') ? 'revealed' : ''}`}>
         <div className="relative z-10 px-8">
           <h2 className="text-4xl md:text-8xl font-black tracking-tighter leading-[0.9] mb-10 md:mb-12 uppercase reveal">Ready to <br className="md:hidden"/>get started?</h2>
@@ -570,8 +550,8 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin, d
         <div className="absolute bottom-0 left-0 w-[300px] md:w-[500px] h-[300px] md:h-[500px] bg-white/10 rounded-full blur-[80px] md:blur-[120px] -ml-32 md:-ml-48 -mb-32 md:-mb-48"></div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-24 md:py-48 border-t border-slate-200/50 dark:border-dark-border/50 glass-card">
+      {/* Footer - CLEAN NO MESH */}
+      <footer className="py-24 md:py-48 border-t border-slate-200/50 dark:border-dark-border/50 bg-white dark:bg-dark">
         <div className="max-w-[1440px] mx-auto px-10 md:px-12 relative z-10">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-16 md:gap-24 mb-24 md:mb-32">
             <div className="lg:col-span-5">
@@ -596,7 +576,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin, d
             </div>
             <div className="lg:col-span-3">
               <h5 className="text-[11px] font-black text-slate-400 uppercase tracking-[0.7em] mb-12">Newsletter</h5>
-              <div className="flex gap-2 p-2 glass-card border-2 border-slate-200/50 dark:border-dark-border/50 rounded-[28px] shadow-sm">
+              <div className="flex gap-2 p-2 bg-slate-50 dark:bg-dark-surface border-2 border-slate-200 dark:border-dark-border rounded-[28px] shadow-sm">
                 <input className="bg-transparent text-sm px-6 outline-none flex-1 font-bold dark:text-white" placeholder="Email Address" />
                 <button className="bg-brand text-white px-8 py-4 rounded-2xl text-[10px] font-black uppercase tracking-widest shadow-xl shadow-brand/30">Join</button>
               </div>
