@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { 
   ArrowRight, 
@@ -199,16 +198,16 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin, d
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* Modern Gradients restricted to hero */
-        .ambient-glow {
+        /* Subtle Ambient Glow solely for hero corner */
+        .ambient-glow-subtle {
           position: absolute;
-          filter: blur(140px);
+          filter: blur(160px);
           border-radius: 100%;
-          opacity: 0.35;
+          opacity: 0.15;
           z-index: 0;
           pointer-events: none;
         }
-        .dark .ambient-glow { opacity: 0.12; }
+        .dark .ambient-glow-subtle { opacity: 0.08; }
 
         .glass-card {
           background: rgba(255, 255, 255, 0.9);
@@ -259,13 +258,11 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin, d
         </div>
       )}
 
-      {/* Hero Section - AMBIENT BLUE GRADIENTS ARE ONLY HERE */}
+      {/* Hero Section */}
       <section id="hero" className={`relative pt-32 md:pt-56 pb-20 md:pb-48 hero-grid overflow-hidden transition-all duration-1000 ${visibleSections.has('hero') ? 'revealed' : ''}`}>
-        {/* Ambient Gradient Mesh for Hero Only */}
+        {/* SUBTLE BLUE GRADIENT ONLY IN TOP LEFT CORNER */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-          <div className="ambient-glow bg-brand w-[800px] h-[800px] -top-96 -left-48 animate-pulse" style={{ animationDuration: '8s' }}></div>
-          <div className="ambient-glow bg-brand w-[600px] h-[600px] top-[15%] -right-48 opacity-20" style={{ animationDuration: '10s' }}></div>
-          <div className="ambient-glow bg-brand w-[700px] h-[700px] top-[40%] left-1/4 opacity-15 dark:opacity-5"></div>
+          <div className="ambient-glow-subtle bg-brand w-[1000px] h-[1000px] -top-[400px] -left-[400px]"></div>
         </div>
 
         <div className="max-w-[1440px] mx-auto px-6 text-center relative z-10">
@@ -422,7 +419,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin, d
             <div className="lg:col-span-7 bg-slate-900 dark:bg-brand/10 border border-white/10 dark:border-brand/10 rounded-[48px] md:rounded-[72px] p-10 md:p-20 reveal overflow-hidden relative group shadow-2xl">
               <div className="relative z-10">
                 <div className="w-16 h-16 md:w-20 md:h-20 bg-brand/30 rounded-[24px] flex items-center justify-center mb-10 md:mb-14">
-                  <ShieldCheck className="w-10 h-10 md:w-12 md:h-12 text-white" />
+                  <ShieldCheck className="w-10 h-10 md:w-12 h-12 text-white" />
                 </div>
                 <h3 className="text-4xl md:text-6xl font-black text-white tracking-tighter mb-8 md:mb-12 uppercase leading-tight">Safe payments <br className="hidden md:block"/>for everyone.</h3>
                 <p className="text-slate-400 text-lg md:text-2xl font-medium leading-relaxed mb-10 md:mb-16 max-w-xl">
@@ -537,7 +534,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onExplore, onLogin, onJoin, d
         </div>
       </section>
 
-      {/* CTA Section - LOCAL ACCENTS ONLY */}
+      {/* CTA Section - NO MESH GRADIENT */}
       <section id="cta" className={`py-24 md:py-32 bg-brand mx-6 md:mx-16 lg:mx-24 rounded-[60px] md:rounded-[100px] text-center text-white mb-24 md:mb-48 relative overflow-hidden shadow-[0_40px_120px_-20px_rgba(0,71,255,0.4)] transition-all duration-1000 ${visibleSections.has('cta') ? 'revealed' : ''}`}>
         <div className="relative z-10 px-8">
           <h2 className="text-4xl md:text-8xl font-black tracking-tighter leading-[0.9] mb-10 md:mb-12 uppercase reveal">Ready to <br className="md:hidden"/>get started?</h2>
